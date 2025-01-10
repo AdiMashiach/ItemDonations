@@ -9,8 +9,8 @@ import { Item } from './entities/items/item.model';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'mssql',
-      host: 'vmedu390.mtacloud.co.il',
-      port: 1443,
+      host: 'localhost',
+      port: 1433,
       username: 'website_user',
       models: [User, Item],
       password: '1234',
