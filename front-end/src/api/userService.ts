@@ -1,32 +1,16 @@
-import { useQuery } from "react-query";
-import { User, users } from "../Data/users";
+import axios from "axios";
+import { User } from "../types";
 
-export const getUser = async (userToFind: User) => {
-  return users.find(
-    (user) =>
-      user.email === userToFind.email && user.password === userToFind.password
+export const getUser = async (user: User) => {
+  const { data: fetchedUser } = await axios.get(
+    `localhost:3000/users?email=${user.email}`
   );
+
+  return fetchedUser;
 };
 
-export const checkUserExist = async (userToFind: User) => {
-  return users.find((user) => user.email === userToFind.email);
-};
+export const postUser = async (user: User) => {
+  const { data: postedUser } = await axios.post(`localhost:3000/users`, user);
 
-export const addUser = async (userToAdd: User) => {
-  users.push(userToAdd);
-};
-
-export const getLocation = () => {
-  return "חולון";
-};
-
-export const useItemOwnerPhoneNumber = (itemOwner: string) => {
-  const getItemOwnerPhoneNumber = async () => {
-    return users.find((user) => user.email === itemOwner)?.phoneNumber;
-  };
-
-  return useQuery({
-    queryKey: ["getItemOwnerPhoneNumber", itemOwner],
-    queryFn: getItemOwnerPhoneNumber,
-  });
+  return postedUser;
 };

@@ -2,11 +2,11 @@ import { Box, Typography } from "@mui/material";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
 import ItemForGivingButtons from "./ItemForGivingButtons/ItemForGivingButtons";
 import { useLocation } from "react-router-dom";
-import { Item } from "../../Data/items";
 import { useTranslation } from "react-i18next";
 import { Namespaces } from "../../i18n/i18n.constants";
 import "./ItemForGiving.scss";
 import ShareWhatsApp from "../../components/ShareWhatsapp/ShareWhatsapp";
+import { Item } from "../../types";
 
 type ItemForGivingProps = {
   item: Item;

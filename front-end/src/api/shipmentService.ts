@@ -1,17 +1,35 @@
 import { useQuery } from "react-query";
-import { Shipment, shipments } from "../Data/shipments";
+import { Item, Shipment } from "../types";
+import axios from "axios";
 
-export const useShipment = (itemID: string) => {
+export const fetchShipments = async () => {
+  const { data: fetchedShipments } = await axios.get(
+    `localhost:3000/shipments`
+  );
+
+  return fetchedShipments;
+};
+
+export const useFetchShipment = (item: Item) => {
   const getShipment = async () => {
-    return shipments.find((shipment) => shipment.itemId === itemID);
+    const { data: fetchedShipment } = await axios.get(
+      `localhost:3000/shipments?itemId=${item.id}`
+    );
+
+    return fetchedShipment;
   };
 
-  return useQuery({
-    queryKey: ["getShipment", itemID],
+  return useQuery<Shipment>({
+    queryKey: ["getShipment", item],
     queryFn: getShipment,
   });
 };
 
-export const createShipment = (shipment: Shipment) => {
-  shipments.push(shipment);
+export const postShipment = async (shipment: Shipment) => {
+  const { data: postedShipment } = await axios.post(
+    `localhost:3000/shipments`,
+    shipment
+  );
+
+  return postedShipment;
 };

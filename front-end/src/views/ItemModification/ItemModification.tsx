@@ -3,23 +3,23 @@ import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useMutation, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { useCities } from "../../api/citiesService";
-import { addItem, modifyItem } from "../../api/itemService";
-import { loggedUser } from "../../atom/atom";
+import { postItem, updateItem } from "../../api/itemService";
+import { cities as citiesAtom, loggedUser } from "../../atom/atom";
 import Drawer from "../../components/Drawer/Drawer";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
 import PhotoUploader from "../../components/PhotoUploader/PhotoUploader";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
-import items, { Item } from "../../Data/items";
 import { ItemStatus } from "../../enums";
 import { Namespaces } from "../../i18n/i18n.constants";
 import itemDetailsSchema, {
   ItemDetailsSchema,
 } from "../../RHFSchemas/ItemDetailsSchema";
 import { Routes } from "../../router";
+import { Item } from "../../types";
 import "./ItemModification.scss";
 
 type ItemModificationProps = {
@@ -41,9 +41,9 @@ const ItemModification = () => {
   const { isNew, item } = (location.state ?? {}) as ItemModificationProps;
 
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const currentUser = useRecoilValue(loggedUser);
-
+  const cities = useRecoilValue(citiesAtom);
   const { control, handleSubmit, setValue, watch } = useForm<ItemDetailsSchema>(
     {
       resolver: zodResolver(itemDetailsSchema),
@@ -60,27 +60,31 @@ const ItemModification = () => {
     setValue("itemImage", data.image);
   };
 
-  const getNextItemID = () => {
-    const sortedArray = items.sort((itemA, itemB) =>
-      itemB.id.localeCompare(itemA.id)
-    );
-
-    return (+sortedArray[0].id + 1).toString();
+  const mutations = {
+    postItem: useMutation(postItem, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getItems"]);
+      },
+    }).mutate,
+    updateItem: useMutation(updateItem, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getItems"]);
+      },
+    }).mutate,
   };
 
   const onSaveButton = handleSubmit(() => {
     const modifiedItem: Item = {
-      id: getNextItemID(),
       description: watch().itemDescription,
       image: watch().itemImage,
       name: watch().itemName,
       location: watch().itemLocation,
-      itemStatus: ItemStatus.MY_ITEM,
+      itemStatus: ItemStatus.TO_DONATE,
       publisherMail: currentUser.email,
       timePublished: new Date(),
     };
     if (isNew) {
-      addItem(modifiedItem);
+      mutations.postItem(modifiedItem);
       navigate(Routes.SUCCESS, {
         state: {
           headerText: translations.tTitle("itemPublished"),
@@ -88,15 +92,10 @@ const ItemModification = () => {
         },
       });
     } else {
-      modifyItem(item ?? ({} as Item), modifiedItem);
-
-      navigate(Routes.ITEM_OVERVIEW, {
-        state: { item: modifiedItem },
-      });
+      mutations.updateItem({ ...modifiedItem, id: item?.id });
+      navigate(Routes.ITEMS);
     }
   });
-
-  const { data: cities } = useCities();
 
   return (
     <Box className="item-details">

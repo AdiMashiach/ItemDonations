@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
-import { Item } from "../../Data/items";
 import { Namespaces } from "../../i18n/i18n.constants";
 import "./ItemOverview.scss";
 import ItemOverviewButtons from "./ItemOverviewButtons/ItemOverviewButtons";
+import { Item } from "../../types";
 
 type ItemOverviewProps = {
   item?: Item;

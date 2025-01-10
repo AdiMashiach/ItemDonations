@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { isTruthy } from "remeda";
-import { addUser, checkUserExist } from "../../api/userService";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
 import { useAuth } from "../../hooks/useAuth";
@@ -35,7 +34,7 @@ const Register = () => {
       phoneNumber: "",
     },
   });
-
+  
   const onLetsGoClick = handleSubmit(async (user) => {
     const existingUser = await checkUserExist(user);
 

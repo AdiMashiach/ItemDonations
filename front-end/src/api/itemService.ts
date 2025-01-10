@@ -1,29 +1,37 @@
-import items, { Item } from "../Data/items";
+import axios from "axios";
+import { Item } from "../types";
 import { useQuery } from "react-query";
 
-export const useItems = () => {
+export const useFetchedItems = () => {
   const getItems = async () => {
-    const fetchItems = await items;
+    const { data: myItems } = await axios.get(`localhost:3000/items`);
 
-    return fetchItems;
+    return myItems;
   };
 
-  return useQuery({
+  return useQuery<Item[]>({
     queryKey: ["getItems"],
     queryFn: getItems,
   });
 };
 
-export const addItem = (item: Item) => {
-  items.push(item);
+export const postItem = async (item: Item) => {
+  const { data: postedItem } = await axios.post(`localhost:3000/items`, item);
+
+  return postedItem;
 };
 
-export const modifyItem = (itemToModify: Item, modifiedItem: Item) => {
-  const itemIndex = items.findIndex((item) => item.id === itemToModify.id);
+export const updateItem = async (item: Item) => {
+  const { data: modifiedItem } = await axios.put(
+    `localhost:3000/items/${item.id}`,
+    item
+  );
 
-  if (itemIndex !== -1) items[itemIndex] = { ...modifiedItem };
+  return modifiedItem;
 };
 
-export const deleteItem = (itemToDelete: Item) => {
-  items.filter((item) => item.id !== itemToDelete.id);
+export const deleteItem = async (item: Item) => {
+  const deleteResponse = await axios.delete(`localhost:3000/items/${item.id}`);
+
+  return deleteResponse;
 };

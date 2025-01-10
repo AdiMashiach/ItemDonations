@@ -1,7 +1,6 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Item } from "../../../Data/items";
 import { ItemCategoery } from "../../../enums";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
@@ -9,6 +8,7 @@ import bottomNavigationActions, {
   FooterAction,
 } from "./BottomNavigationActions.utilities";
 import "./ItemsPageFooter.scss";
+import { Item } from "../../../types";
 
 type ItemsPageFooterProps = {
   selectedCategory: FooterAction;

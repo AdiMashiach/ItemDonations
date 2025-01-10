@@ -4,10 +4,11 @@ import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../../api/itemService";
-import { Item } from "../../../Data/items";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import "./ItemOverviewButtons.scss";
+import { Item } from "../../../types";
+import { useMutation, useQueryClient } from "react-query";
 
 type ItemOverviewButtonsProps = {
   item: Item;
@@ -23,7 +24,14 @@ const ItemOverviewButtons = ({
     tTitle: useTranslation(Namespaces.title).t,
   };
 
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const deleteItemMutation = useMutation(deleteItem, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getItems"]);
+    },
+  }).mutate;
 
   const onClickAction = {
     edit: () => {
@@ -35,7 +43,7 @@ const ItemOverviewButtons = ({
       setIsDeleteDrawerOpen(true);
     },
     reportGiven: () => {
-      deleteItem(item);
+      deleteItemMutation(item);
 
       navigate(Routes.SUCCESS, {
         state: {
