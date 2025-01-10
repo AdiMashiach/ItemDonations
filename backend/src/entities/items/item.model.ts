@@ -7,7 +7,6 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { Location } from '../locations/location.model';
 import { User } from '../users/user.model';
 
 interface IItem {
@@ -49,19 +48,12 @@ export class Item extends Model<IItem> {
 
   @Column({
     type: DataType.NUMBER,
-    references: {
-      model: Location,
-      key: 'id',
-    },
     field: 'location_id',
   })
   locationId: number;
 
   @Column({ type: DataType.NUMBER, field: 'item_status' })
   itemStatus: number;
-
-  @HasOne(() => Location)
-  location: Location;
 
   @HasOne(() => User)
   user: User;
