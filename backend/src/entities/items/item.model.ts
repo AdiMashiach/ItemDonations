@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -55,6 +56,6 @@ export class Item extends Model<IItem> {
   @Column({ type: DataType.NUMBER, field: 'item_status' })
   itemStatus: number;
 
-  @HasOne(() => User)
+  @BelongsTo(() => User)
   user: User;
 }
