@@ -2,18 +2,22 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { clone } from "remeda";
-import { useItems } from "../../api/itemService";
-import { loggedUser, userLocation as UserLocationAtom } from "../../atom/atom";
+import { useFetchCities } from "../../api/citiesService";
+import { useFetchedItems } from "../../api/itemService";
+import {
+  cities as citiesAtom,
+  loggedUser,
+  userLocation as userLocationAtom,
+} from "../../atom/atom";
 import { API_KEY } from "../../contants";
-import { Item } from "../../Data/items";
 import { ItemCategoery, ItemClause, ItemStatus } from "../../enums";
 import useGeolocationCity from "../../hooks/useGeolocationCity";
+import { Item } from "../../types";
 import ItemPageContent from "./ItemPageContent/ItemsPageContent";
 import "./ItemsPage.scss";
+import bottomNavigationActions, { FooterAction } from "./ItemsPageFooter/BottomNavigationActions.utilities";
 import ItemsPageFooter from "./ItemsPageFooter/ItemsPageFooter";
 import ItemsPageHeader from "./ItemsPageHeader/ItemsPageHeader";
-import { FooterAction } from "./ItemsPageFooter/BottomNavigationActions.utilities";
-import bottomNavigationActions from "./ItemsPageFooter/BottomNavigationActions.utilities";
 
 const ItemsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<FooterAction>(
@@ -25,11 +29,13 @@ const ItemsPage = () => {
   const [displayedItems, setDisplayedItems] = useState<Item[]>([]);
   const [itemsSearchValue, setItemsSearchValue] = useState("");
 
-  const { data: items, isSuccess: isItemsSuccess } = useItems();
+  const { data: items, isSuccess: isItemsSuccess } = useFetchedItems();
+  const { data: cities, isSuccess: isCitiesSuccess } = useFetchCities();
 
   const currentUser = useRecoilValue(loggedUser);
+  const setAtomCities = useSetRecoilState(citiesAtom);
 
-  const setUserLocation = useSetRecoilState(UserLocationAtom);
+  const setUserLocation = useSetRecoilState(userLocationAtom);
   const userLocation = useGeolocationCity(API_KEY).city ?? "";
   setUserLocation(userLocation);
 
@@ -38,17 +44,23 @@ const ItemsPage = () => {
   }, [items, isItemsSuccess]);
 
   useEffect(() => {
+    if (isCitiesSuccess) setAtomCities(cities);
+  }, [cities, isCitiesSuccess, setAtomCities]);
+
+  useEffect(() => {
     let filteredItems = clone(items);
 
     if (selectedCategory.value === ItemCategoery.MY_ITEMS) {
       filteredItems = filteredItems?.filter(
         (filteredItem) =>
           filteredItem.publisherMail === currentUser.email &&
-          filteredItem.itemStatus === ItemStatus.MY_ITEM
+          filteredItem.itemStatus === ItemStatus.TO_DONATE
       );
     } else if (selectedCategory.value === ItemCategoery.HOME) {
       filteredItems = filteredItems?.filter(
-        (filteredItem) => filteredItem.itemStatus === ItemStatus.TO_DONATE
+        (filteredItem) =>
+          filteredItem.itemStatus === ItemStatus.TO_DONATE &&
+          filteredItem.publisherMail !== currentUser.email
       );
     } else {
       filteredItems = filteredItems?.filter(
@@ -73,8 +85,8 @@ const ItemsPage = () => {
     selectedClause,
     selectedCategory,
     items,
-    currentUser,
     userLocation,
+    currentUser,
     itemsSearchValue,
     setItemsSearchValue,
   ]);

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { User } from "../Data/users";
+import { City, User } from "../types";
 
 export const loggedUser = atom<User>({
   key: "loggedUser",
@@ -12,4 +12,9 @@ export const loggedUser = atom<User>({
 export const userLocation = atom<string>({
   key: "userLocation",
   default: "",
+});
+
+export const cities = atom<City[]>({
+  key: "cities",
+  default: [],
 });

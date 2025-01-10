@@ -3,24 +3,26 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useMutation, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { isDefined } from "remeda";
-import { modifyItem } from "../../api/itemService";
-import { createShipment, useShipment } from "../../api/shipmentService";
+import { updateItem } from "../../api/itemService";
+import { postShipment, useFetchShipment } from "../../api/shipmentService";
+import { cities as citiesAtom } from "../../atom/atom";
 import Drawer from "../../components/Drawer/Drawer";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
+import ShareWhatsApp from "../../components/ShareWhatsapp/ShareWhatsapp";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
-import { cities } from "../../Data/cities";
-import { Item } from "../../Data/items";
 import { ItemStatus } from "../../enums";
 import { Namespaces } from "../../i18n/i18n.constants";
 import shipmentDetailsSchema, {
   ShipmentDetailsSchema,
 } from "../../RHFSchemas/ShipmentDetails";
 import { Routes } from "../../router";
+import { Item } from "../../types";
 import "./ItemShipment.scss";
-import ShareWhatsApp from "../../components/ShareWhatsapp/ShareWhatsapp";
 
 type ItemShipmentProps = {
   item: Item;
@@ -38,8 +40,11 @@ const ItemShipment = () => {
 
   const location = useLocation();
   const { item } = (location.state ?? {}) as ItemShipmentProps;
-  const { data: currentShipment } = useShipment(item.id);
 
+  const { data: currentShipment } = useFetchShipment(item);
+  const queryClient = useQueryClient();
+
+  const cities = useRecoilValue(citiesAtom);
   const navigate = useNavigate();
 
   const { control, handleSubmit, setValue, watch } =
@@ -52,15 +57,28 @@ const ItemShipment = () => {
       },
     });
 
+  const mutations = {
+    postShipment: useMutation(postShipment, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getItems"]);
+      },
+    }).mutate,
+    updateItem: useMutation(updateItem, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getItems"]);
+      },
+    }).mutate,
+  };
+
   const onPublishShipmentRequestClick = handleSubmit(() => {
-    createShipment({
+    mutations.postShipment({
       address: watch().loadingAddress ?? "",
       addressDetails: watch().addressDetails ?? "",
-      itemId: item.id,
+      itemId: item.id ?? 0,
       loadingCity: watch().loadingCity,
     });
 
-    modifyItem(item, {
+    mutations.updateItem({
       ...item,
       itemStatus: ItemStatus.TO_SHIP,
     });

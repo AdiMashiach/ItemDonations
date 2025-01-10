@@ -2,11 +2,11 @@ import { LocalShipping, Send } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Item } from "../../../Data/items";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import "./ItemForGivingButtons.scss";
 import useShare from "../../../hooks/useShare";
+import { Item } from "../../../types";
 
 type ItemOverviewButtonsProps = {
   item: Item;
@@ -27,6 +27,7 @@ const ItemForGivingButtons = ({ item }: ItemOverviewButtonsProps) => {
         state: { item: item },
       });
     },
+
     share: () => {
       share({
         title: translations.tTitle("shareItem"),

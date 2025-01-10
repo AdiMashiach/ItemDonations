@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import { Item } from "../../../Data/items";
 import ItemCard from "./ItemCard/ItemCard";
 import "./ItemsPageContent.scss";
 import { useEffect } from "react";
 import { ItemCategoery } from "../../../enums";
+import { Item } from "../../../types";
 
 type ItemPageContentProps = {
   items: Item[];

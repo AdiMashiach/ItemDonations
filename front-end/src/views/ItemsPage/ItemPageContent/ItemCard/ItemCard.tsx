@@ -5,10 +5,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Item } from "../../../../Data/items";
 import { ItemCategoery } from "../../../../enums";
 import { Routes } from "../../../../router";
 import "./ItemCard.scss";
+import { Item } from "../../../../types";
 
 type ItemCardProps = {
   item: Item;

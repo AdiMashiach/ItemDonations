@@ -7,7 +7,6 @@ export enum UserTypes {
 export enum ItemStatus {
   TO_DONATE = 0,
   TO_SHIP = 1,
-  MY_ITEM = 2,
 }
 
 export enum ItemCategoery {
