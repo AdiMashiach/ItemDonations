@@ -1,0 +1,24 @@
+.item-displayer-title {
+  height: 8vh;
+  box-shadow: 1px 14px 20px -3px rgba(0, 0, 0, 0.41);
+  -webkit-box-shadow: 1px 14px 20px -3px rgba(0, 0, 0, 0.41);
+  -moz-box-shadow: 1px 14px 20px -3px rgba(0, 0, 0, 0.41);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__back-button {
+    position: absolute;
+    right: 5vw;
+
+    &--icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__text {
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+}

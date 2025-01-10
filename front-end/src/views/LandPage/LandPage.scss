@@ -1,0 +1,39 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    display: flex;
+    position: absolute;
+    bottom: 20vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &--main {
+      text-align: center;
+      font-size: 4rem;
+    }
+
+    &--sub {
+      font-size: 2rem;
+      width: 70vw;
+      text-align: center;
+      font-weight: 300;
+    }
+  }
+
+  &__links {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &--login {
+      width: 90vw;
+    }
+  }
+}

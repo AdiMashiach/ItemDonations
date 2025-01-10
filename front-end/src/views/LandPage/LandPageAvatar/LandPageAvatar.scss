@@ -1,0 +1,11 @@
+.avatar {
+  height: 50vh;
+  width: 100vw;
+
+  &__image {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    overflow: hidden;
+  }
+}

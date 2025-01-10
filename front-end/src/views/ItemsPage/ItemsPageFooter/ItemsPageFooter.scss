@@ -1,0 +1,21 @@
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: "#fff";
+  height: fit-content;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+
+  &__button {
+    font-size: 12px;
+    padding: 0;
+
+    &--content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}

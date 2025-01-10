@@ -1,0 +1,18 @@
+.titled-component {
+  margin-bottom: 1rem;
+
+  &__title {
+    display: flex;
+    align-items: start;
+    width: 90vw;
+
+    &--text {
+      color: #6c7580;
+      font-weight: 600;
+    }
+
+    &--required {
+      color: red;
+    }
+  }
+}

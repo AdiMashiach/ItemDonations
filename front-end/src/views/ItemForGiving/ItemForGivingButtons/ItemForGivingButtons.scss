@@ -1,0 +1,17 @@
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__icon {
+    background-color: #ecf1f5;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+  }
+
+  &__text {
+    font-weight: 500;
+  }
+}

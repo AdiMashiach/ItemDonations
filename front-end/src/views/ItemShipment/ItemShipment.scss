@@ -1,0 +1,51 @@
+.shipment {
+  &__item {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    background: #ecf1f5;
+    align-items: center;
+    gap: 2rem;
+
+    &--image {
+      height: 6rem;
+      width: 6rem;
+      border-radius: 1rem;
+    }
+
+    &--name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #6c7580;
+    }
+  }
+
+  &__titles {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &--first,
+    &--second {
+      color: #6c7580;
+      font-weight: 600;
+    }
+  }
+
+  &__fields {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding-bottom: 3rem;
+  }
+
+  &__button {
+    position: fixed;
+    width: 90vw;
+    bottom: 3rem;
+    right: 5vw;
+  }
+}

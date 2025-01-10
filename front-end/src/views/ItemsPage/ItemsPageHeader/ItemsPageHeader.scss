@@ -1,0 +1,78 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  top: 1vh;
+  width: 100%;
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__search,
+    &__logout {
+      background-color: #f1f1f599;
+      width: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__location {
+      padding-top: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem;
+
+      &--icon,
+      &--text {
+        color: #0075ff;
+      }
+    }
+  }
+
+  &__search {
+    &--input {
+      width: 90vw;
+      line-height: 1rem;
+    }
+  }
+
+  &__description {
+    margin-top: 1rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &-clauses {
+      margin-top: 0.5rem;
+      border: none;
+      width: fit-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      &--option {
+        color: black !important;
+        background-color: none;
+        font-weight: 800;
+        font-size: 1rem;
+        border: 2px solid #f1f1f599;
+        border-radius: 5rem;
+      }
+
+      &--active-option {
+        background-color: black;
+        border-radius: 5rem;
+        color: white !important;
+        font-weight: 800;
+        font-size: 1rem;
+      }
+    }
+  }
+}
