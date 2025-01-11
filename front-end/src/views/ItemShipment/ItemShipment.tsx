@@ -159,7 +159,7 @@ const ItemShipment = () => {
             {translations.tAction("publishShipment")}
           </Button>
         ) : (
-          <ShareWhatsApp itemOwner={item.publisherMail} />
+          <ShareWhatsApp />
         )}
       </Box>
     </>

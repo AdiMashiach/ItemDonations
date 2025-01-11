@@ -10,7 +10,7 @@ export const getUser = async (user: User) => {
 };
 
 export const postUser = async (user: User) => {
-  const { data: postedUser } = await axios.post(`localhost:3000/users`, user);
+  const { data: postedUser } = await axios.post(`http://localhost:3000/users`, user);
 
   return postedUser;
 };

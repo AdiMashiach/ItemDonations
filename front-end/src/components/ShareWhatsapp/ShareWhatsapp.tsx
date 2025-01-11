@@ -4,13 +4,10 @@ import { WhatsApp } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { Namespaces } from "../../i18n/i18n.constants";
 import { useState } from "react";
-import { useItemOwnerPhoneNumber } from "../../api/userService";
+import { useRecoilValue } from "recoil";
+import { loggedUser as loggedUserAtom } from "../../atom/atom";
 
-type ShareWhatsAppProps = {
-  itemOwner: string;
-};
-
-const ShareWhatsApp = ({ itemOwner }: ShareWhatsAppProps) => {
+const ShareWhatsApp = () => {
   const translations = {
     tTitle: useTranslation(Namespaces.title).t,
     tAction: useTranslation(Namespaces.action).t,
@@ -23,11 +20,11 @@ const ShareWhatsApp = ({ itemOwner }: ShareWhatsAppProps) => {
     setWhatsAppText(whatsAppText);
   };
 
-  const { data: itemOwnerPhone } = useItemOwnerPhoneNumber(itemOwner);
+  const loggeduser = useRecoilValue(loggedUserAtom);
 
   const onSendClick = () => {
     const encodedText = encodeURIComponent(whatsAppText);
-    const whatsappLink = `https://wa.me/${itemOwnerPhone}?text=${encodedText}`;
+    const whatsappLink = `https://wa.me/${loggeduser}?text=${encodedText}`;
 
     window.open(whatsappLink, "_blank");
   };
