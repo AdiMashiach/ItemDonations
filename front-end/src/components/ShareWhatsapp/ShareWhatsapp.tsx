@@ -21,11 +21,11 @@ const ShareWhatsApp = () => {
     setWhatsAppText(whatsAppText);
   };
 
-  const loggedUser = useRecoilValue(loggerUserAtom)
+  const { data: itemOwnerPhone } = useItemOwnerPhoneNumber(itemOwner);
 
   const onSendClick = () => {
     const encodedText = encodeURIComponent(whatsAppText);
-    const whatsappLink = `https://wa.me/${loggedUser}?text=${encodedText}`;
+    const whatsappLink = `https://wa.me/${itemOwnerPhone}?text=${encodedText}`;
 
     window.open(whatsappLink, "_blank");
   };
