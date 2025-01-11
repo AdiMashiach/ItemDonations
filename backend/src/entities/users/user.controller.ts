@@ -7,8 +7,10 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('find')
+  @Get('')
   async getUser(@Query('email') email: string) {
+    console.log('connect');
+    
     return this.userService.getUser(email);
   }
 

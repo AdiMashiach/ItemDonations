@@ -19,7 +19,7 @@ import { ItemStatus } from "../../enums";
 import { Namespaces } from "../../i18n/i18n.constants";
 import shipmentDetailsSchema, {
   ShipmentDetailsSchema,
-} from "../../RHFSchemas/ShipmentDetails";
+} from "../../RHFSchemas/ShipmentDetailsSchema";
 import { Routes } from "../../router";
 import { Item } from "../../types";
 import "./ItemShipment.scss";
@@ -159,7 +159,7 @@ const ItemShipment = () => {
             {translations.tAction("publishShipment")}
           </Button>
         ) : (
-          <ShareWhatsApp itemOwner={item.publisherMail} />
+          <ShareWhatsApp />
         )}
       </Box>
     </>

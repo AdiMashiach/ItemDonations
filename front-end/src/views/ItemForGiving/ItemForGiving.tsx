@@ -37,7 +37,7 @@ const ItemForGiving = () => {
           {item?.description}
         </Typography>
       </Box>
-      <ShareWhatsApp itemOwner={item.publisherMail} />
+      <ShareWhatsApp />
     </>
   );
 };

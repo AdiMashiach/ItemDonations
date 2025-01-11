@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchShipments = async () => {
   const { data: fetchedShipments } = await axios.get(
-    `localhost:3000/shipments`
+    `http://localhost:3000/shipments`
   );
 
   return fetchedShipments;
@@ -13,7 +13,7 @@ export const fetchShipments = async () => {
 export const useFetchShipment = (item: Item) => {
   const getShipment = async () => {
     const { data: fetchedShipment } = await axios.get(
-      `localhost:3000/shipments?itemId=${item.id}`
+      `http://localhost:3000/shipments?itemId=${item.id}`
     );
 
     return fetchedShipment;
@@ -27,7 +27,7 @@ export const useFetchShipment = (item: Item) => {
 
 export const postShipment = async (shipment: Shipment) => {
   const { data: postedShipment } = await axios.post(
-    `localhost:3000/shipments`,
+    `http://localhost:3000/shipments`,
     shipment
   );
 

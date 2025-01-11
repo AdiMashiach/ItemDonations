@@ -10,12 +10,12 @@ import { loggedUser } from "../../atom/atom";
 import FirstTime from "../../components/FirstTime/FirstTime";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
-import { User } from "../../Data/users";
 import { useAuth } from "../../hooks/useAuth";
 import { Namespaces } from "../../i18n/i18n.constants";
 import loginSchema, { LoginSchema } from "../../RHFSchemas/LoginSchema";
 import { Routes } from "../../router";
 import "./Login.scss";
+import { User } from "../../types";
 
 const Login = () => {
   const translations = {
@@ -37,7 +37,7 @@ const Login = () => {
     defaultValues: { ...currentUser },
   });
 
-  const onLoginClick = handleSubmit(async (user) => {
+  const onLoginClick = handleSubmit(async (user) => {    
     const loggedUser = await getUser({ ...user } as User);
 
     if (isTruthy(loggedUser)) {
