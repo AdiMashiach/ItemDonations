@@ -3,7 +3,7 @@ import { User } from "../types";
 
 export const getUser = async (user: User) => {
   const { data: fetchedUser } = await axios.get(
-    `localhost:3000/users?email=${user.email}`
+    `http://localhost:3000/users?email=${user.email}`
   );
 
   return fetchedUser;

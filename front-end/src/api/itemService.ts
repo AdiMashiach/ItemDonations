@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 export const useFetchedItems = () => {
   const getItems = async () => {
-    const { data: myItems } = await axios.get(`localhost:3000/items`);
+    const { data: myItems } = await axios.get(`http://localhost:3000/items`);
 
     return myItems;
   };
@@ -16,14 +16,14 @@ export const useFetchedItems = () => {
 };
 
 export const postItem = async (item: Item) => {
-  const { data: postedItem } = await axios.post(`localhost:3000/items`, item);
+  const { data: postedItem } = await axios.post(`http://localhost:3000/items`, item);
 
   return postedItem;
 };
 
 export const updateItem = async (item: Item) => {
   const { data: modifiedItem } = await axios.put(
-    `localhost:3000/items/${item.id}`,
+    `http://localhost:3000/items/${item.id}`,
     item
   );
 
@@ -31,7 +31,7 @@ export const updateItem = async (item: Item) => {
 };
 
 export const deleteItem = async (item: Item) => {
-  const deleteResponse = await axios.delete(`localhost:3000/items/${item.id}`);
+  const deleteResponse = await axios.delete(`http://localhost:3000/items/${item.id}`);
 
   return deleteResponse;
 };

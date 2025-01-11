@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 export const useFetchCities = () => {
   const getCities = async () => {
-    const { data: cities } = await axios.get(`localhost:3000/locations`);
+    const { data: cities } = await axios.get(`http://localhost:3000/locations`);
 
     return cities;
   };
