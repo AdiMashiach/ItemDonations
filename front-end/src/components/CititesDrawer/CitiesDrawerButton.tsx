@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { isEmpty, isTruthy } from "remeda";
 import { Namespaces } from "../../i18n/i18n.constants";
 import { RHF } from "../../utilities/RHFTypes";
-import "./DrawerButton.scss";
+import "./CitiesDrawerButton.scss";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 
 type DrawerButtonProps<T extends FieldValues> = {
@@ -15,7 +15,7 @@ type DrawerButtonProps<T extends FieldValues> = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } & RHF<T>;
 
-const DrawerButton = <T extends FieldValues>({
+const CitiesDrawerButton = <T extends FieldValues>({
   placeholder,
   sx,
   isDrawerOpen,
@@ -63,4 +63,4 @@ const DrawerButton = <T extends FieldValues>({
   );
 };
 
-export default DrawerButton;
+export default CitiesDrawerButton;

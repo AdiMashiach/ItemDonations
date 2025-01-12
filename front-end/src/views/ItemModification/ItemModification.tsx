@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { postItem, updateItem } from "../../api/itemService";
 import { cities as citiesAtom, loggedUser } from "../../atom/atom";
-import Drawer from "../../components/Drawer/Drawer";
+import CitiesDrawer from "../../components/CititesDrawer/CitiesDrawer";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
 import PhotoUploader from "../../components/PhotoUploader/PhotoUploader";
 import TextField from "../../components/TextField/TextField";
@@ -131,7 +131,7 @@ const ItemModification = () => {
           title={translations.tField("itemLocation")}
           required={true}
         >
-          <Drawer
+          <CitiesDrawer
             drawerItems={cities?.map((city) => city.name) ?? []}
             isDrawerOpen={isCityDrawerOpen}
             setIsDrawerOpen={setIsCityDrawerOpen}
