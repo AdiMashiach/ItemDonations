@@ -12,7 +12,7 @@ interface IUser {
   phoneNumber: string;
 }
 
-@Table({ tableName: 'users', timestamps: false })
+@Table({ tableName: 'Users', timestamps: false })
 export class User extends Model<IUser> {
   @PrimaryKey
   @Column({

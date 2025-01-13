@@ -20,7 +20,7 @@ interface IItem {
   user: User;
 }
 
-@Table({ tableName: 'items', timestamps: false })
+@Table({ tableName: 'Items', timestamps: false })
 export class Item extends Model<IItem> {
   @PrimaryKey
   @Column(DataType.NUMBER)
@@ -48,7 +48,7 @@ export class Item extends Model<IItem> {
 
   @Column({
     type: DataType.NUMBER,
-    field: 'location_id',
+    field: 'city_id',
   })
   locationId: number;
 

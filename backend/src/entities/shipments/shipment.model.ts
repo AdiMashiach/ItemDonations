@@ -4,7 +4,7 @@ interface IShipment {
 
 }
 
-@Table({ tableName: 'shipments', timestamps: false })
+@Table({ tableName: 'Shipments', timestamps: false })
 export class Shipment extends Model<IShipment> {
      
 }

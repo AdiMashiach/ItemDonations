@@ -8,13 +8,13 @@ import { Item } from './entities/items/item.model';
 @Module({
   imports: [
     SequelizeModule.forRoot({
-      dialect: 'mssql',
+      dialect: 'postgres',
       host: 'localhost',
-      port: 1433,
-      username: 'website_user',
-      models: [User, Item],
+      database: 'ItemDonations',
+      port: 5432,
+      username: 'postgres',
       password: '1234',
-      database: 'WebProj',
+      models: [User, Item],
       autoLoadModels: false,
       synchronize: false,
     }),
@@ -22,4 +22,4 @@ import { Item } from './entities/items/item.model';
     ItemModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
