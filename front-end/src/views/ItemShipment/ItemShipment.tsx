@@ -92,7 +92,11 @@ const ItemShipment = () => {
     });
   });
 
-  useEffect(() => { }, [currentShipment, isShipmentSuccess])
+  useEffect(() => {
+    setValue('addressDetails', currentShipment?.addressDetails)
+    setValue('loadingAddress', currentShipment?.address)
+    setValue('loadingCity', currentShipment?.cityId ?? '')
+  }, [currentShipment, isShipmentSuccess])
 
   return (
     <>

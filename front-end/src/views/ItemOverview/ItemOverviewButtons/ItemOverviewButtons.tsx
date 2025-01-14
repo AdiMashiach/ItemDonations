@@ -1,37 +1,32 @@
 import { Delete, Done, Edit } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
+import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
+import { UseMutateFunction } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { deleteItem } from "../../../api/itemService";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
-import "./ItemOverviewButtons.scss";
 import { Item } from "../../../types";
-import { useMutation, useQueryClient } from "react-query";
+import "./ItemOverviewButtons.scss";
 
 type ItemOverviewButtonsProps = {
   item: Item;
   setIsDeleteDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  deleteItemMutation: UseMutateFunction<AxiosResponse<any, any>, unknown, Item, unknown>;
 };
 
 const ItemOverviewButtons = ({
   item,
   setIsDeleteDrawerOpen,
+  deleteItemMutation
 }: ItemOverviewButtonsProps) => {
   const translations = {
     tAction: useTranslation(Namespaces.action).t,
     tTitle: useTranslation(Namespaces.title).t,
   };
 
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  const deleteItemMutation = useMutation(deleteItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getItems"]);
-    },
-  }).mutate;
 
   const onClickAction = {
     edit: () => {
@@ -40,7 +35,6 @@ const ItemOverviewButtons = ({
       });
     },
     delete: () => {
-      deleteItemMutation(item);
       setIsDeleteDrawerOpen(true);
     },
     reportGiven: () => {
