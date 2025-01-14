@@ -4,8 +4,8 @@ import { City } from "../cities/city.model";
 
 interface IShipment {
   id: number;
-  item_id: number;
-  city_id: number;
+  itemId: number;
+  cityId: number;
   address: string;
   address_details: string;
 }

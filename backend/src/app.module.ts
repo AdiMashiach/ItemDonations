@@ -7,6 +7,7 @@ import { Item } from './entities/items/item.model';
 import { City } from './entities/cities/city.model';
 import { Shipment } from './entities/shipments/shipment.model';
 import { CityModule } from './entities/cities/city.module';
+import { ShipmentModule } from './entities/shipments/shipment.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { CityModule } from './entities/cities/city.module';
     }),
     UserModule,
     ItemModule,
-    CityModule
+    CityModule,
+    ShipmentModule
   ],
 })
 export class AppModule {}
