@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isTruthy } from "remeda";
 import { getUser } from "../../api/userService";
 import { loggedUser } from "../../atom/atom";
 import FirstTime from "../../components/FirstTime/FirstTime";
@@ -37,16 +37,25 @@ const Login = () => {
     defaultValues: { ...currentUser },
   });
 
-  const onLoginClick = handleSubmit(async (user) => {    
-    const loggedUser = await getUser({ ...user } as User);
-
-    if (isTruthy(loggedUser)) {
+  const loginMutate = useMutation(getUser, {
+    onSuccess: (user) => {
       navigate(Routes.ITEMS);
-      login(loggedUser);
-    } else {
-      setError("email", { message: translations.tMessage("userNotFound") });
-    }
-  });
+      login(user);
+    },
+    onError: (error: any) => {
+      if (error?.response.data?.code === 1002) {
+        setError("password", { message: "invalidPasswordOrEmail" });
+      }
+    },
+  }).mutate;
+
+  const onLoginClick = handleSubmit(async (user) =>
+    loginMutate({
+      email: user.email,
+      password: user.password,
+      phoneNumber: "",
+    })
+  );
 
   return (
     <Box className="login">

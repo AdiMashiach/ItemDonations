@@ -7,8 +7,8 @@ import { UserRepository } from './user.repository';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async getUser(userEmail: string) {
-    return this.userRepository.getUser(userEmail);
+  async getUser(email: string, password: string) {
+    return this.userRepository.getUser(email, password);
   }
 
   async postUser(createUserDTO: CreateUserDto): Promise<User> {

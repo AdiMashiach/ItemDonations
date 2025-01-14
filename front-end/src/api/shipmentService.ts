@@ -2,14 +2,6 @@ import { useQuery } from "react-query";
 import { Item, Shipment } from "../types";
 import axios from "axios";
 
-export const fetchShipments = async () => {
-  const { data: fetchedShipments } = await axios.get(
-    `http://localhost:3000/shipments`
-  );
-
-  return fetchedShipments;
-};
-
 export const useFetchShipment = (item: Item) => {
   const getShipment = async () => {
     const { data: fetchedShipment } = await axios.get(

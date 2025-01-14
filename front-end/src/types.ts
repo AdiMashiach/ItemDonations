@@ -19,7 +19,7 @@ export type City = {
 export type Shipment = {
   itemId: number;
   address: string;
-  loadingCity: number;
+  cityId: number;
   addressDetails: string;
 };
 

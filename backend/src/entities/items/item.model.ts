@@ -8,12 +8,13 @@ import {
   Table
 } from 'sequelize-typescript';
 import { User } from '../users/user.model';
+import { City } from '../cities/city.model';
 
 interface IItem {
   id: string;
   name: string;
   descriptio: string;
-  locationId: number;
+  cityId: number;
   publisherMail: string;
   image: string;
   itemStatus: number;
@@ -46,11 +47,16 @@ export class Item extends Model<IItem> {
   @ForeignKey(() => User)
   publisherMail: string;
 
+  @ForeignKey(() => City)
   @Column({
     type: DataType.NUMBER,
+    references: {
+      model: City,
+      key: 'id'
+    },
     field: 'city_id',
   })
-  locationId: number;
+  cityId: number;
 
   @Column({ type: DataType.NUMBER, field: 'item_status' })
   itemStatus: number;

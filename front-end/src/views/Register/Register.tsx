@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { isTruthy } from "remeda";
+import { postUser } from "../../api/userService";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
 import { useAuth } from "../../hooks/useAuth";
@@ -34,20 +35,22 @@ const Register = () => {
       phoneNumber: "",
     },
   });
-  
-  const onLetsGoClick = handleSubmit(async (user) => {
-    const existingUser = await checkUserExist(user);
 
-    if (isTruthy(existingUser)) {
-      setError("email", {
-        message: translations.tMessage("UserAlreadyExists"),
-      });
-    } else {
-      addUser(user);
+  const registerMutation = useMutation(postUser, {
+    onSuccess: (postedUser) => {
       navigate(Routes.ITEMS);
-      login(user);
-    }
-  });
+      login(postedUser);
+    },
+    onError: (error: any) => {
+      if (error.response?.data?.code === 1001) {
+        setError("email", {
+          message: translations.tMessage("UserAlreadyExists"),
+        });
+      }
+    },
+  }).mutate;
+
+  const onRegisterClick = handleSubmit(async (user) => registerMutation(user));
 
   return (
     <Box className="register">
@@ -81,7 +84,7 @@ const Register = () => {
           />
         </TitledComponent>
       </Box>
-      <Button className="register__button" onClick={onLetsGoClick}>
+      <Button className="register__button" onClick={onRegisterClick}>
         {translations.tAction("letsGo")}
       </Button>
     </Box>

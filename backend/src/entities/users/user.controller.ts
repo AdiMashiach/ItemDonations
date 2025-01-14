@@ -7,14 +7,12 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('')
-  async getUser(@Query('email') email: string) {
-    console.log('connect');
-    
-    return this.userService.getUser(email);
+  @Post('login')
+  async getUser(@Body() {email, password}: User) {
+    return this.userService.getUser(email, password);
   }
 
-  @Post()
+  @Post('register')
   async postUser(@Body() createUserDTO: CreateUserDto): Promise<User> {
     return this.userService.postUser(createUserDTO);
   }
