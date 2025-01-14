@@ -51,7 +51,7 @@ const ItemShipment = () => {
     useForm<ShipmentDetailsSchema>({
       resolver: zodResolver(shipmentDetailsSchema),
       defaultValues: {
-        loadingCity: currentShipment?.loadingCity,
+        loadingCity: currentShipment?.cityId,
         loadingAddress: currentShipment?.address,
         addressDetails: currentShipment?.addressDetails,
       },
@@ -75,7 +75,7 @@ const ItemShipment = () => {
       address: watch().loadingAddress ?? "",
       addressDetails: watch().addressDetails ?? "",
       itemId: item.id ?? 0,
-      loadingCity: watch().loadingCity,
+      cityId: watch().loadingCity,
     });
 
     mutations.updateItem({
