@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { postUser } from "../../api/userService";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
+import { ERROR_CODES } from "../../enums";
 import { useAuth } from "../../hooks/useAuth";
 import { Namespaces } from "../../i18n/i18n.constants";
 import registerSchema, {
@@ -42,7 +43,9 @@ const Register = () => {
       login(postedUser);
     },
     onError: (error: any) => {
-      if (error.response?.data?.code === 1001) {
+      console.log(error);
+
+      if (error.response?.data?.code === ERROR_CODES.USER_ALREADY_EXISTS) {
         setError("email", {
           message: translations.tMessage("UserAlreadyExists"),
         });

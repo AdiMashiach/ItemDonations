@@ -18,7 +18,7 @@ import { ShipmentModule } from './entities/shipments/shipment.module';
       port: 5432,
       username: 'postgres',
       password: '1234',
-      models: [User, Item, City, Shipment],
+      models: [City, User, Item, Shipment],
       autoLoadModels: false,
       synchronize: false,
     }),

@@ -8,15 +8,16 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { CreateUserDto } from './user.dto';
 import * as bcrypt from 'bcrypt';
+import { ERROR_CODES } from 'src/enums';
 
 @Injectable()
 export class UserRepository {
-  constructor(@InjectModel(User) private userModel: typeof User) {}
+  constructor(@InjectModel(User) private userModel: typeof User) { }
 
   async getUser(email: string, password: string) {
     const user = await this.userModel.findOne({ where: { email } });
-    if (!user || !(await bcrypt.compare(user.password, password))) {
-      throw new HttpException({ code: 1001 }, HttpStatus.CONFLICT);
+    if (!user || user.password !== password) {
+      throw new HttpException({ code: ERROR_CODES.UNAUTHORIZED_USER }, HttpStatus.CONFLICT);
     }
 
     return user;
@@ -28,7 +29,7 @@ export class UserRepository {
     });
 
     if (existingUser) {
-      throw new HttpException({ code: 1002 }, HttpStatus.UNAUTHORIZED);
+      throw new HttpException({ code: ERROR_CODES.USER_ALREADY_EXISTS }, HttpStatus.UNAUTHORIZED);
     }
 
     return this.userModel.create(createUserDTO);

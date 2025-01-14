@@ -13,7 +13,7 @@ export class ItemDTO {
   @IsEmail()
   publisherMail: string;
 
-  locationId: number;
+  cityId: string;
 
   itemStatus: number;
 }

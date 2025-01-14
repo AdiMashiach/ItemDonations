@@ -5,7 +5,7 @@ import { City } from "../cities/city.model";
 interface IShipment {
   id: number;
   itemId: number;
-  cityId: number;
+  cityId: string;
   address: string;
   address_details: string;
 }
@@ -13,7 +13,11 @@ interface IShipment {
 @Table({ tableName: 'Shipments', timestamps: false })
 export class Shipment extends Model<IShipment> {
      @PrimaryKey
-     @Column(DataType.NUMBER)
+     @Column({
+      type: DataType.NUMBER,
+      primaryKey: true,
+      autoIncrement: true
+    })
      id: number;
 
      @ForeignKey(() => Item)
@@ -29,14 +33,14 @@ export class Shipment extends Model<IShipment> {
 
      @ForeignKey(() => City)
      @Column({
-      type: DataType.NUMBER,
+      type: DataType.STRING,
       references: {
         model: City,
         key: 'id'
       },
       field: 'city_id'
      })
-     cityId: number;
+     cityId: string;
 
      @Column(DataType.STRING)
      address: string;

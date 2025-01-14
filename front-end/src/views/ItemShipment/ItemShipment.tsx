@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { isEmpty } from "lodash";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isDefined } from "remeda";
 import { updateItem } from "../../api/itemService";
 import { postShipment, useFetchShipment } from "../../api/shipmentService";
 import { cities as citiesAtom } from "../../atom/atom";
@@ -41,7 +41,8 @@ const ItemShipment = () => {
   const location = useLocation();
   const { item } = (location.state ?? {}) as ItemShipmentProps;
 
-  const { data: currentShipment } = useFetchShipment(item);
+  const { data: currentShipment, isSuccess: isShipmentSuccess } = useFetchShipment(item);
+
   const queryClient = useQueryClient();
 
   const cities = useRecoilValue(citiesAtom);
@@ -91,6 +92,8 @@ const ItemShipment = () => {
     });
   });
 
+  useEffect(() => { }, [currentShipment, isShipmentSuccess])
+
   return (
     <>
       <ItemDisplayerTitle title={translations.tTitle("searchShipment")} />
@@ -114,7 +117,7 @@ const ItemShipment = () => {
         <Box className="shipment__fields">
           <TitledComponent title={translations.tField("loadingDest")} required>
             <CitiesDrawer
-              drawerItems={cities?.map((city) => city.name) ?? []}
+              drawerItems={cities ?? []}
               isDrawerOpen={isCityDrawerOpen}
               setIsDrawerOpen={setIsCityDrawerOpen}
               control={control}
@@ -123,7 +126,7 @@ const ItemShipment = () => {
               placeholder={translations.tPlaceholder("cityToPickFrom")}
               title={translations.tTitle("pickUPCity")}
               searchbar
-              disabled={isDefined(currentShipment)}
+              disabled={!isEmpty(currentShipment)}
             />
           </TitledComponent>
           <TitledComponent title={translations.tField("address")}>
@@ -132,7 +135,7 @@ const ItemShipment = () => {
               name={"loadingAddress"}
               sx={{ width: "90vw" }}
               placeholder={translations.tPlaceholder("notNecessaryButHelpful")}
-              disabled={isDefined(currentShipment)}
+              disabled={!isEmpty(currentShipment)}
               type="text"
             />
           </TitledComponent>
@@ -146,12 +149,12 @@ const ItemShipment = () => {
               type="text"
               multiline
               sx={{ width: "90vw" }}
-              disabled={isDefined(currentShipment)}
+              disabled={!isEmpty(currentShipment)}
               multilineRows={5}
             />
           </TitledComponent>
         </Box>
-        {!isDefined(currentShipment) ? (
+        {isEmpty(currentShipment) ? (
           <Button
             className="shipment__button"
             onClick={onPublishShipmentRequestClick}

@@ -1,16 +1,12 @@
 import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
 
 interface ICities {
-  id: number;
-  name: string
+  id: string;
 }
 
-@Table({ tableName: 'Cities', timestamps: false})
+@Table({ tableName: 'Cities', timestamps: false })
 export class City extends Model<ICities> {
   @PrimaryKey
-  @Column(DataType.NUMBER)
-  id: number;
-
   @Column(DataType.STRING)
-  name: string;
+  id: string;
 }

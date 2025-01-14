@@ -15,12 +15,13 @@ import { RHF } from "../../utilities/RHFTypes";
 import "./CitiesDrawer.scss";
 import CitiesDrawerButton from "./CitiesDrawerButton";
 import { Search } from "@mui/icons-material";
+import { City } from "../../types";
 
 type DrawerProps<T extends FieldValues> = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setValue: UseFormSetValue<T>;
-  drawerItems: string[];
+  drawerItems: City[];
   placeholder: string;
   disabled?: boolean;
   title?: string;
@@ -41,16 +42,13 @@ const CitiesDrawer = <T extends FieldValues>({
 }: DrawerProps<T>) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleOnDrawerClose = (drawerItem: PathValue<T, Path<T>>) => {
-    if (typeof drawerItem === "string") {
-      setValue(name, drawerItem);
-    }
-
+  const handleOnDrawerClose = (drawerItem: City) => {
+    setValue(name, drawerItem.id as PathValue<T, Path<T>>);
     setIsDrawerOpen(false);
   };
 
   const filteredItems = drawerItems.filter((item) =>
-    item.toLowerCase().includes(searchQuery.toLowerCase())
+    item.id.includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -106,16 +104,16 @@ const CitiesDrawer = <T extends FieldValues>({
           {filteredItems.map((drawerItem) => (
             <ListItem
               className="drawer-list__item"
-              key={drawerItem}
+              key={drawerItem.id}
               disablePadding
               onClick={() =>
-                handleOnDrawerClose(drawerItem as PathValue<T, Path<T>>)
+                handleOnDrawerClose(drawerItem)
               }
             >
               <ListItemButton className="drawer-list__item--button">
                 <ListItemText
                   className="drawer-list__item--text"
-                  primary={drawerItem}
+                  primary={drawerItem.id}
                 />
               </ListItemButton>
             </ListItem>

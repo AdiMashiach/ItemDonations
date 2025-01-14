@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./FirstTime.scss";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,7 @@ const FirstTime = ({ alignment }: FirstTimeProps) => {
   const { t } = useTranslation(Namespaces.firstTime);
 
   return (
-    <Typography className="first-time" sx={{ textAlign: alignment }}>
+    <Box className="first-time" sx={{ textAlign: alignment }}>
       {t("firstTime")}
       <Link
         to={Routes.REGISTER}
@@ -21,7 +21,7 @@ const FirstTime = ({ alignment }: FirstTimeProps) => {
       >
         {t("signUp")}
       </Link>
-    </Typography>
+    </Box>
   );
 };
 

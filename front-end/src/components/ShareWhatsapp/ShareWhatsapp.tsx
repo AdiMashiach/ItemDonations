@@ -1,11 +1,11 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import "./ShareWhatsapp.scss";
 import { WhatsApp } from "@mui/icons-material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Namespaces } from "../../i18n/i18n.constants";
-import { useState } from "react";
+import "./ShareWhatsapp.scss";
 import { useRecoilValue } from "recoil";
-import { loggedUser as loggerUserAtom } from "../../atom/atom";
+import { loggedUser as loggedUserAtom } from "../../atom/atom";
 
 
 const ShareWhatsApp = () => {
@@ -16,16 +16,15 @@ const ShareWhatsApp = () => {
   };
 
   const [whatsAppText, setWhatsAppText] = useState("");
+  const loggedUser = useRecoilValue(loggedUserAtom)
 
   const onWhatsAppNumberChange = (whatsAppText: string) => {
     setWhatsAppText(whatsAppText);
   };
 
-  const { data: itemOwnerPhone } = useItemOwnerPhoneNumber(itemOwner);
-
   const onSendClick = () => {
     const encodedText = encodeURIComponent(whatsAppText);
-    const whatsappLink = `https://wa.me/${itemOwnerPhone}?text=${encodedText}`;
+    const whatsappLink = `https://wa.me/${loggedUser.phoneNumber}?text=${encodedText}`;
 
     window.open(whatsappLink, "_blank");
   };

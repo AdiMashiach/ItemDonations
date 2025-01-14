@@ -32,7 +32,7 @@ const ItemForGiving = () => {
         />
         <Typography className="item-overview__pickup-point">{`${t(
           "pickUpFrom"
-        )}${item?.location}`}</Typography>
+        )}${item?.cityId}`}</Typography>
         <Typography className="item-overview__description">
           {item?.description}
         </Typography>

@@ -4,22 +4,20 @@ export type Item = {
   id?: number;
   name: string;
   image: string;
-  location: string;
+  cityId: string;
   description: string;
-  timePublished: Date;
   publisherMail: string;
   itemStatus: ItemStatus;
 };
 
 export type City = {
-  id: number;
-  name: string;
+  id: string;
 };
 
 export type Shipment = {
   itemId: number;
   address: string;
-  cityId: number;
+  cityId: string;
   addressDetails: string;
 };
 

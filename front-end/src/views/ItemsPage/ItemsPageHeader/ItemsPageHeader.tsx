@@ -16,6 +16,7 @@ import ItemPageHeaderSearch from "./ItemPageHeaderSearch/ItemPageHeaderSearch";
 import "./ItemsPageHeader.scss";
 import tabs from "./Tabs.utilites";
 import ConfirmationDrawer from "../../../components/ConfirmationDrawer/ConfirmationDrawer";
+import ConfirmationDrawerButtons from "./ConfirmationDrawerButtons/ConfirmationDrawerButtons";
 
 type ItemsPageHeaderProps = {
   selectedClause: ItemClause;
@@ -119,7 +120,7 @@ const ItemsPageHeader = ({
                   className={clsx(
                     "header__description-clauses--option",
                     selectedClause === tab.tabValue &&
-                      "header__description-clauses--active-option"
+                    "header__description-clauses--active-option"
                   )}
                   label={translations.tTitle(tab.tabName)}
                   value={tab.tabValue}
@@ -133,7 +134,8 @@ const ItemsPageHeader = ({
         title={translations.tTitle("logoutFromTheWebsite")}
         isDrawerOpen={isConfirmationDrawerOpen}
         setIsDrawerOpen={setIsConfirmationDrawerOpen}
-        drawerButtons={}
+        drawerButtons={<ConfirmationDrawerButtons />}
+        drawerContent={<></>}
       />
     </>
   );

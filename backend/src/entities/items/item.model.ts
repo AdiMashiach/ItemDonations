@@ -14,7 +14,7 @@ interface IItem {
   id: string;
   name: string;
   descriptio: string;
-  cityId: number;
+  cityId: string;
   publisherMail: string;
   image: string;
   itemStatus: number;
@@ -24,7 +24,11 @@ interface IItem {
 @Table({ tableName: 'Items', timestamps: false })
 export class Item extends Model<IItem> {
   @PrimaryKey
-  @Column(DataType.NUMBER)
+  @Column({
+    type: DataType.NUMBER,
+    primaryKey: true,
+    autoIncrement: true
+  })
   id: number;
 
   @Column(DataType.STRING)
@@ -49,14 +53,14 @@ export class Item extends Model<IItem> {
 
   @ForeignKey(() => City)
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.STRING,
     references: {
       model: City,
       key: 'id'
     },
     field: 'city_id',
   })
-  cityId: number;
+  cityId: string;
 
   @Column({ type: DataType.NUMBER, field: 'item_status' })
   itemStatus: number;

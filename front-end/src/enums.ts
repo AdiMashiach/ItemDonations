@@ -1,9 +1,3 @@
-export enum UserTypes {
-  DONOR = "DONOR",
-  DONATED = "DONATED",
-  SHIPPER = "SHIPPER",
-}
-
 export enum ItemStatus {
   TO_DONATE = 0,
   TO_SHIP = 1,
@@ -21,3 +15,8 @@ export enum ItemClause {
   ALL_ITEMS = "ALL_ITEMS",
   MY_ITEMS = "MY_ITEMS",
 }
+
+export enum ERROR_CODES {
+  USER_ALREADY_EXISTS = 1001,
+  UNAUTHORIZED_USER = 1002
+} 

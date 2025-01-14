@@ -77,6 +77,7 @@ export default {
   [Namespaces.message]: {
     requiredField: "שדה חובה",
     UserAlreadyExists: "המשתמש כבר קיים",
-    userNotFound: "השתמש לא קיים",
+    invalidPasswordOrEmail: "משתמש או סיסמה אינם נכונים",
+    enterValidEmail: 'הזן מייל תקין'
   },
 };

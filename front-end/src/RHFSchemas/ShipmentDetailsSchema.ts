@@ -2,7 +2,7 @@ import { z } from "zod";
 import { isTruthy } from "remeda";
 
 const shipmentDetailsSchema = z.object({
-  loadingCity: z.number().refine((loadingDest) => isTruthy(loadingDest), {
+  loadingCity: z.string().refine((loadingDest) => isTruthy(loadingDest), {
     message: "requiredField",
   }),
   loadingAddress: z.string().optional(),

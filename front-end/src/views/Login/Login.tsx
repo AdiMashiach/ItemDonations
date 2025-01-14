@@ -4,18 +4,16 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import { getUser } from "../../api/userService";
-import { loggedUser } from "../../atom/atom";
 import FirstTime from "../../components/FirstTime/FirstTime";
 import TextField from "../../components/TextField/TextField";
 import TitledComponent from "../../components/TitledComponent/TitledComponent";
+import { ERROR_CODES } from "../../enums";
 import { useAuth } from "../../hooks/useAuth";
 import { Namespaces } from "../../i18n/i18n.constants";
 import loginSchema, { LoginSchema } from "../../RHFSchemas/LoginSchema";
 import { Routes } from "../../router";
 import "./Login.scss";
-import { User } from "../../types";
 
 const Login = () => {
   const translations = {
@@ -30,11 +28,9 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const currentUser = useRecoilValue(loggedUser);
-
   const { control, handleSubmit, setError } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { ...currentUser },
+    defaultValues: {},
   });
 
   const loginMutate = useMutation(getUser, {
@@ -43,7 +39,7 @@ const Login = () => {
       login(user);
     },
     onError: (error: any) => {
-      if (error?.response.data?.code === 1002) {
+      if (error?.response.data?.code === ERROR_CODES.UNAUTHORIZED_USER) {
         setError("password", { message: "invalidPasswordOrEmail" });
       }
     },

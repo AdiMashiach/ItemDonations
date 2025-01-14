@@ -5,17 +5,21 @@ import { ItemRepository } from './item.repository';
 
 @Injectable()
 export class ItemService {
-  constructor(private readonly itemRepository: ItemRepository) {}
+  constructor(private readonly itemRepository: ItemRepository) { }
 
-  async getMyItems(userEmail: string) {
-    return this.itemRepository.getMyItems(userEmail);
+  getItems() {
+    return this.itemRepository.getItems();
   }
 
-  async getPublishedItems(userEmail: string) {
-    return this.itemRepository.getPublishedItems(userEmail);
+  postItem(ItemDTO: ItemDTO): Promise<Item> {
+    return this.itemRepository.postItem(ItemDTO);
   }
 
-  async postItem(createItemDTO: ItemDTO): Promise<Item> {
-    return this.itemRepository.postItem(createItemDTO);
+  updateItem(itemDTO: ItemDTO, id: number) {
+    return this.itemRepository.updateItem(itemDTO, id)
+  }
+
+  deleteItem(id: number) {
+    return this.itemRepository.deleteItem(id)
   }
 }

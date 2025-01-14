@@ -8,7 +8,7 @@ const itemDetailsSchema = z.object({
   itemDescription: z.string().refine((description) => isTruthy(description), {
     message: "requiredField",
   }),
-  itemLocation: z.number().refine((location) => isTruthy(location), {
+  itemLocation: z.string().refine((location) => isTruthy(location), {
     message: "requiredField",
   }),
   itemImage: z

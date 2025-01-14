@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../types";
 
-export const getUser = async (user: User) => {
+export const getUser = async (user: User) => {  
   const { data: fetchedUser } = await axios.post(
     `http://localhost:3000/users/login`,
     { email: user.email, password: user.password }
@@ -11,6 +11,8 @@ export const getUser = async (user: User) => {
 };
 
 export const postUser = async (user: User) => {
+  console.log('register');
+  
   const { data: postedUser } = await axios.post(
     `http://localhost:3000/users/register`,
     user

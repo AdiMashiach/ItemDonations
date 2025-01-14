@@ -50,7 +50,7 @@ const ItemModification = () => {
       defaultValues: {
         itemDescription: item?.description ?? "",
         itemImage: item?.image ?? "",
-        itemLocation: item?.location ?? "",
+        itemLocation: item?.cityId,
         itemName: item?.name ?? "",
       },
     }
@@ -78,10 +78,9 @@ const ItemModification = () => {
       description: watch().itemDescription,
       image: watch().itemImage,
       name: watch().itemName,
-      location: watch().itemLocation,
+      cityId: watch().itemLocation,
       itemStatus: ItemStatus.TO_DONATE,
       publisherMail: currentUser.email,
-      timePublished: new Date(),
     };
     if (isNew) {
       mutations.postItem(modifiedItem);
@@ -131,8 +130,8 @@ const ItemModification = () => {
           title={translations.tField("itemLocation")}
           required={true}
         >
-          <CitiesDrawer
-            drawerItems={cities?.map((city) => city.name) ?? []}
+          <CitiesDrawer<ItemDetailsSchema>
+            drawerItems={cities}
             isDrawerOpen={isCityDrawerOpen}
             setIsDrawerOpen={setIsCityDrawerOpen}
             control={control}

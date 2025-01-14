@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ItemDTO } from './item.dto';
 import { Item } from './item.model';
 import { ItemService } from './item.service';
@@ -7,18 +7,18 @@ import { ItemService } from './item.service';
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Get('getMyItems')
-  async getMyItems(@Query('email') email: string) {
-    return this.itemService.getMyItems(email);
+  @Get('')
+  getItems() {
+    return this.itemService.getItems();
   }
 
-  @Get('getPublishedItems')
-  async getPublishedItems(@Query('email') email: string) {
-    return this.itemService.getPublishedItems(email);
+  @Post('')
+  postItem(@Body() ItemDTO: ItemDTO): Promise<Item> {
+    return this.itemService.postItem(ItemDTO);
   }
 
-  @Post()
-  async postUser(@Body() createItemDTO: ItemDTO): Promise<Item> {
-    return this.itemService.postItem(createItemDTO);
+  @Put(':id')
+  updateItem(@Body() itemDTO: ItemDTO, @Param('id') id: number) {
+    return this.itemService.updateItem(itemDTO, id)
   }
 }

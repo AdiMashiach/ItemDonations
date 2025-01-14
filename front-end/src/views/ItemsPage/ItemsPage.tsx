@@ -73,13 +73,13 @@ const ItemsPage = () => {
       selectedCategory.value !== ItemCategoery.MY_ITEMS
     ) {
       filteredItems = filteredItems?.filter(
-        (filteredItem) => filteredItem.location === userLocation
+        (filteredItem) => filteredItem.cityId === userLocation
       );
     }
 
     setDisplayedItems(
       filteredItems?.filter((item) => item.name.includes(itemsSearchValue)) ??
-        []
+      []
     );
   }, [
     selectedClause,

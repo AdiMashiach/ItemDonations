@@ -40,11 +40,11 @@ const ItemOverviewButtons = ({
       });
     },
     delete: () => {
+      deleteItemMutation(item);
       setIsDeleteDrawerOpen(true);
     },
     reportGiven: () => {
       deleteItemMutation(item);
-
       navigate(Routes.SUCCESS, {
         state: {
           headerText: translations.tTitle("itemPublished"),
