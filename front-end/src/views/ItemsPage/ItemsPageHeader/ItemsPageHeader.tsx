@@ -1,13 +1,7 @@
-import { Cancel, LocationOn, Logout, SearchRounded } from "@mui/icons-material";
-import {
-  Box,
-  IconButton,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { LocationOn, Logout, SearchRounded } from "@mui/icons-material";
+import { Box, IconButton, Tab, Tabs, Typography } from "@mui/material";
 import clsx from "clsx";
+import { isEmpty } from "lodash";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +12,10 @@ import { useAuth } from "../../../hooks/useAuth";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import { FooterAction } from "../ItemsPageFooter/BottomNavigationActions.utilities";
+import ItemPageHeaderSearch from "./ItemPageHeaderSearch/ItemPageHeaderSearch";
 import "./ItemsPageHeader.scss";
 import tabs from "./Tabs.utilites";
-import { isEmpty } from "lodash";
+import ConfirmationDrawer from "../../../components/ConfirmationDrawer/ConfirmationDrawer";
 
 type ItemsPageHeaderProps = {
   selectedClause: ItemClause;
@@ -42,6 +37,8 @@ const ItemsPageHeader = ({
 
   const [relevantTabs, setRelevantTabs] = useState(tabs);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isConfirmationDrawerOpen, setIsConfirmationDrawerOpen] =
+    useState(false);
 
   const { logout } = useAuth();
 
@@ -98,26 +95,10 @@ const ItemsPageHeader = ({
             </IconButton>
           </Box>
         ) : (
-          <Box className="header__search">
-            <TextField
-              className="header__search--input"
-              placeholder={translations.tPlaceholder("searchItems")}
-              onChange={(e) => setItemsSearchValue(e.target.value)}
-              InputProps={{
-                sx: {
-                  borderRadius: "2rem",
-                  height: "2.5rem",
-                  backgroundColor: "#f1f1f599",
-                  paddingInlineStart: "2rem",
-                },
-                endAdornment: (
-                  <IconButton onClick={toggleSearchBar}>
-                    <Cancel />
-                  </IconButton>
-                ),
-              }}
-            />
-          </Box>
+          <ItemPageHeaderSearch
+            setItemsSearchValue={setItemsSearchValue}
+            toggleSearchBar={toggleSearchBar}
+          />
         )}
         <Box className="header__description">
           <Typography className="header__description__title">
@@ -148,6 +129,12 @@ const ItemsPageHeader = ({
           )}
         </Box>
       </Box>
+      <ConfirmationDrawer
+        title={translations.tTitle("logoutFromTheWebsite")}
+        isDrawerOpen={isConfirmationDrawerOpen}
+        setIsDrawerOpen={setIsConfirmationDrawerOpen}
+        drawerButtons={}
+      />
     </>
   );
 };

@@ -10,7 +10,7 @@ import { isDefined } from "remeda";
 import { updateItem } from "../../api/itemService";
 import { postShipment, useFetchShipment } from "../../api/shipmentService";
 import { cities as citiesAtom } from "../../atom/atom";
-import Drawer from "../../components/Drawer/Drawer";
+import CitiesDrawer from "../../components/CititesDrawer/CitiesDrawer";
 import ItemDisplayerTitle from "../../components/ItemDisplayerTitle/ItemDisplayerTitle";
 import ShareWhatsApp from "../../components/ShareWhatsapp/ShareWhatsapp";
 import TextField from "../../components/TextField/TextField";
@@ -113,7 +113,7 @@ const ItemShipment = () => {
         </Box>
         <Box className="shipment__fields">
           <TitledComponent title={translations.tField("loadingDest")} required>
-            <Drawer
+            <CitiesDrawer
               drawerItems={cities?.map((city) => city.name) ?? []}
               isDrawerOpen={isCityDrawerOpen}
               setIsDrawerOpen={setIsCityDrawerOpen}

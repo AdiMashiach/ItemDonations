@@ -12,8 +12,8 @@ import {
 import { useState } from "react";
 import { FieldValues, Path, PathValue, UseFormSetValue } from "react-hook-form";
 import { RHF } from "../../utilities/RHFTypes";
-import "./Drawer.scss";
-import DrawerButton from "./DrawerButton";
+import "./CitiesDrawer.scss";
+import CitiesDrawerButton from "./CitiesDrawerButton";
 import { Search } from "@mui/icons-material";
 
 type DrawerProps<T extends FieldValues> = {
@@ -27,7 +27,7 @@ type DrawerProps<T extends FieldValues> = {
   searchbar?: boolean;
 } & RHF<T>;
 
-const Drawer = <T extends FieldValues>({
+const CitiesDrawer = <T extends FieldValues>({
   isDrawerOpen,
   setIsDrawerOpen,
   setValue,
@@ -55,7 +55,7 @@ const Drawer = <T extends FieldValues>({
 
   return (
     <>
-      <DrawerButton
+      <CitiesDrawerButton
         control={control}
         name={name}
         placeholder={placeholder}
@@ -70,8 +70,8 @@ const Drawer = <T extends FieldValues>({
         anchor="bottom"
         PaperProps={{
           sx: {
-            borderRadius: '1rem'
-          }
+            borderRadius: "1rem",
+          },
         }}
       >
         <Box className="drawer-header">
@@ -126,4 +126,4 @@ const Drawer = <T extends FieldValues>({
   );
 };
 
-export default Drawer;
+export default CitiesDrawer;
