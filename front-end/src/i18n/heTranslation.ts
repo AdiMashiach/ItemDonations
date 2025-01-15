@@ -78,6 +78,8 @@ export default {
     requiredField: "שדה חובה",
     UserAlreadyExists: "המשתמש כבר קיים",
     invalidPasswordOrEmail: "משתמש או סיסמה אינם נכונים",
-    enterValidEmail: 'הזן מייל תקין'
+    enterValidEmail: 'הזן מייל תקין',
+    askingForItem: 'היי, אשמח לברר לגבי הפריט',
+    askingForShipment: 'היי, אשמח לעזור בהובלה עם'
   },
 };

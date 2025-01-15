@@ -13,7 +13,10 @@ type ItemForGivingProps = {
 };
 
 const ItemForGiving = () => {
-  const { t } = useTranslation(Namespaces.field);
+  const translations = {
+    tField: useTranslation(Namespaces.field).t,
+    tMessage: useTranslation(Namespaces.message).t
+  }
 
   const location = useLocation();
   const { item } = location.state as ItemForGivingProps;
@@ -30,14 +33,14 @@ const ItemForGiving = () => {
           alt="Uploaded Preview"
           className="item-overview__image"
         />
-        <Typography className="item-overview__pickup-point">{`${t(
+        <Typography className="item-overview__pickup-point">{`${translations.tField(
           "pickUpFrom"
         )}${item?.cityId}`}</Typography>
         <Typography className="item-overview__description">
           {item?.description}
         </Typography>
       </Box>
-      <ShareWhatsApp />
+      <ShareWhatsApp intro={translations.tMessage('askingForItem')} item={item} />
     </>
   );
 };

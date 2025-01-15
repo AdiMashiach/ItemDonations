@@ -34,6 +34,7 @@ const ItemShipment = () => {
     tField: useTranslation(Namespaces.field).t,
     tPlaceholder: useTranslation(Namespaces.placeholder).t,
     tAction: useTranslation(Namespaces.action).t,
+    tMessage: useTranslation(Namespaces.message).t,
   };
 
   const [isCityDrawerOpen, setIsCityDrawerOpen] = useState(false);
@@ -41,7 +42,8 @@ const ItemShipment = () => {
   const location = useLocation();
   const { item } = (location.state ?? {}) as ItemShipmentProps;
 
-  const { data: currentShipment, isSuccess: isShipmentSuccess } = useFetchShipment(item);
+  const { data: currentShipment, isSuccess: isShipmentSuccess } =
+    useFetchShipment(item);
 
   const queryClient = useQueryClient();
 
@@ -93,10 +95,10 @@ const ItemShipment = () => {
   });
 
   useEffect(() => {
-    setValue('addressDetails', currentShipment?.addressDetails)
-    setValue('loadingAddress', currentShipment?.address)
-    setValue('loadingCity', currentShipment?.cityId ?? '')
-  }, [currentShipment, isShipmentSuccess])
+    setValue("addressDetails", currentShipment?.addressDetails);
+    setValue("loadingAddress", currentShipment?.address);
+    setValue("loadingCity", currentShipment?.cityId ?? "");
+  }, [currentShipment, isShipmentSuccess, setValue]);
 
   return (
     <>
@@ -110,14 +112,16 @@ const ItemShipment = () => {
           />
           <Typography className="shipment__item--name">{item.name}</Typography>
         </Box>
-        <Box className="shipment__titles">
-          <Typography className="shipment__titles--first">
-            {translations.tTitle("publishShipmentRequest")}
-          </Typography>
-          <Typography className="shipment__titles--second">
-            {translations.tTitle("oneOfTheShippersWillContactYou")}
-          </Typography>
-        </Box>
+        {isEmpty(currentShipment) && (
+          <Box className="shipment__titles">
+            <Typography className="shipment__titles--first">
+              {translations.tTitle("publishShipmentRequest")}
+            </Typography>
+            <Typography className="shipment__titles--second">
+              {translations.tTitle("oneOfTheShippersWillContactYou")}
+            </Typography>
+          </Box>
+        )}
         <Box className="shipment__fields">
           <TitledComponent title={translations.tField("loadingDest")} required>
             <CitiesDrawer
@@ -166,7 +170,10 @@ const ItemShipment = () => {
             {translations.tAction("publishShipment")}
           </Button>
         ) : (
-          <ShareWhatsApp />
+          <ShareWhatsApp
+            intro={translations.tMessage("askingForShipment")}
+            item={item}
+          />
         )}
       </Box>
     </>

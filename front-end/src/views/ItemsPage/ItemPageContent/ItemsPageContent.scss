@@ -8,3 +8,13 @@
   margin-bottom: 5rem;
   margin-top: 1rem;
 }
+
+.no-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--text {
+    font-size: 3rem;
+  }
+}

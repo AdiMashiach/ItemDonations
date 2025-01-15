@@ -6,9 +6,14 @@ import { Namespaces } from "../../i18n/i18n.constants";
 import "./ShareWhatsapp.scss";
 import { useRecoilValue } from "recoil";
 import { loggedUser as loggedUserAtom } from "../../atom/atom";
+import { Item } from "../../types";
 
+type ShareWhatsAppProps = {
+  intro: string;
+  item: Item;
+};
 
-const ShareWhatsApp = () => {
+const ShareWhatsApp = ({ intro, item }: ShareWhatsAppProps) => {
   const translations = {
     tTitle: useTranslation(Namespaces.title).t,
     tAction: useTranslation(Namespaces.action).t,
@@ -16,14 +21,16 @@ const ShareWhatsApp = () => {
   };
 
   const [whatsAppText, setWhatsAppText] = useState("");
-  const loggedUser = useRecoilValue(loggedUserAtom)
+  const loggedUser = useRecoilValue(loggedUserAtom);
 
   const onWhatsAppNumberChange = (whatsAppText: string) => {
     setWhatsAppText(whatsAppText);
   };
 
   const onSendClick = () => {
-    const encodedText = encodeURIComponent(whatsAppText);
+    const textToSend = `${intro}: ${item.name}\n${whatsAppText}`;
+
+    const encodedText = encodeURIComponent(textToSend);
     const whatsappLink = `https://wa.me/${loggedUser.phoneNumber}?text=${encodedText}`;
 
     window.open(whatsappLink, "_blank");
