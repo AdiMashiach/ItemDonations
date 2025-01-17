@@ -5,10 +5,18 @@ import { ItemRepository } from './item.repository';
 
 @Injectable()
 export class ItemService {
-  constructor(private readonly itemRepository: ItemRepository) { }
+  constructor(private readonly itemRepository: ItemRepository) {}
 
   getItems() {
     return this.itemRepository.getItems();
+  }
+
+  getItemsByName(itemName: string) {
+    this.itemRepository.getItemsByName(itemName);
+  }
+
+  getItemsByStatus(itemStatus: number) {
+    this.itemRepository.getItemsByStatus(itemStatus);
   }
 
   postItem(ItemDTO: ItemDTO): Promise<Item> {
@@ -16,10 +24,10 @@ export class ItemService {
   }
 
   updateItem(itemDTO: ItemDTO, id: number) {
-    return this.itemRepository.updateItem(itemDTO, id)
+    return this.itemRepository.updateItem(itemDTO, id);
   }
 
   deleteItem(id: number) {
-    return this.itemRepository.deleteItem(id)
+    return this.itemRepository.deleteItem(id);
   }
 }

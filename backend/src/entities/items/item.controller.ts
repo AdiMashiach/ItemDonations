@@ -12,6 +12,16 @@ export class ItemController {
     return this.itemService.getItems();
   }
 
+  @Get('')
+  getItemsByName(@Query('itemName') itemName: string) {
+    this.itemService.getItemsByName(itemName);
+  }
+
+  @Get('')
+  getItemsByStatus(@Query('itemStatus') itemStatus: number) {
+    this.itemService.getItemsByStatus(itemStatus);
+  }
+
   @Post('')
   postItem(@Body() ItemDTO: ItemDTO): Promise<Item> {
     return this.itemService.postItem(ItemDTO);
@@ -19,6 +29,6 @@ export class ItemController {
 
   @Put(':id')
   updateItem(@Body() itemDTO: ItemDTO, @Param('id') id: number) {
-    return this.itemService.updateItem(itemDTO, id)
+    return this.itemService.updateItem(itemDTO, id);
   }
 }
