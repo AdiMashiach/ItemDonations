@@ -15,5 +15,12 @@
     width: 100%;
     bottom: 0;
     color: white;
+
+    &--description {
+      background-color: rgb(114, 114, 114);
+      width: fit-content;
+      padding: 0 1rem;
+      border-radius: 1rem;
+    }
   }
 }

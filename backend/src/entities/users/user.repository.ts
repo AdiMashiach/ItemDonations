@@ -23,6 +23,13 @@ export class UserRepository {
     return user;
   }
 
+  async getUserPhoneNumber(email: string) {
+    await this.userModel.findOne({
+      attributes: ['phoneNumber'],
+      where: { email }
+    })
+  }
+
   async postUser(createUserDTO: CreateUserDto): Promise<User> {
     const existingUser = await this.userModel.findOne({
       where: { email: createUserDTO.email },

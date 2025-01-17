@@ -12,6 +12,11 @@ export class UserController {
     return this.userService.getUser(email, password);
   }
 
+  @Get('phoneNumber')
+  async getUserPhoneNumber(@Query('email') email: string) {
+    return this.userService.getUserPhoneNumber(email)
+  }
+
   @Post('register')
   async postUser(@Body() createUserDTO: CreateUserDto): Promise<User> {
     return this.userService.postUser(createUserDTO);

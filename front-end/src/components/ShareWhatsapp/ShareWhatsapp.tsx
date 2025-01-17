@@ -21,8 +21,8 @@ const ShareWhatsApp = ({ intro, item }: ShareWhatsAppProps) => {
   };
 
   const [whatsAppText, setWhatsAppText] = useState("");
-  const loggedUser = useRecoilValue(loggedUserAtom);
-
+  const { data: itemPublisherPhoneNumber } = useGetPhoneNumber(item.publisherMail)
+  
   const onWhatsAppNumberChange = (whatsAppText: string) => {
     setWhatsAppText(whatsAppText);
   };
@@ -32,7 +32,8 @@ const ShareWhatsApp = ({ intro, item }: ShareWhatsAppProps) => {
 
     const encodedText = encodeURIComponent(textToSend);
     const whatsappLink = `https://wa.me/${loggedUser.phoneNumber}?text=${encodedText}`;
-
+    console.log(whatsappLink);
+    
     window.open(whatsappLink, "_blank");
   };
 
