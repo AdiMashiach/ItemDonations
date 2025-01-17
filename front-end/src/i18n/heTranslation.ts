@@ -38,6 +38,7 @@ export default {
       "יכול לעזור בהובלה? פה נמצא מי שצריך את עזרתך!",
     nearMe: "קרוב אליי",
     allItems: "כל הפריטים",
+    noItems: 'אין פריטים להצגה'
   },
   [Namespaces.action]: {
     login: "התחברות",

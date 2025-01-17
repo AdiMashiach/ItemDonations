@@ -53,7 +53,21 @@ const Register = () => {
     },
   }).mutate;
 
-  const onRegisterClick = handleSubmit(async (user) => registerMutation(user));
+  const formattedPhoneNumber = (phoneNumber: string) => {
+    const digits = phoneNumber.replace(/\D/g, '');
+
+    if (digits.startsWith('972')) {
+      return `+${digits}`;
+    } else if (digits.startsWith('0')) {
+      return `+972${digits.substring(1)}`;
+    }
+    return `+${digits}`;
+  }
+
+  const onRegisterClick = handleSubmit((user) => {
+    user.phoneNumber = formattedPhoneNumber(user.phoneNumber);
+    registerMutation(user);
+  });
 
   return (
     <Box className="register">
