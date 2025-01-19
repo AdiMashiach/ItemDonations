@@ -8,6 +8,7 @@ import { City } from './entities/cities/city.model';
 import { Shipment } from './entities/shipments/shipment.model';
 import { CityModule } from './entities/cities/city.module';
 import { ShipmentModule } from './entities/shipments/shipment.module';
+import { SendGridModule } from './api/send-grid/send-grid.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { ShipmentModule } from './entities/shipments/shipment.module';
     UserModule,
     ItemModule,
     CityModule,
-    ShipmentModule
+    ShipmentModule,
+    SendGridModule
   ],
 })
 export class AppModule { }

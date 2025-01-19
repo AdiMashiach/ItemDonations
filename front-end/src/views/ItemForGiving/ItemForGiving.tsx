@@ -7,6 +7,7 @@ import { Namespaces } from "../../i18n/i18n.constants";
 import "./ItemForGiving.scss";
 import ShareWhatsApp from "../../components/ShareWhatsapp/ShareWhatsapp";
 import { Item } from "../../types";
+import { useGetUserPhoneNumber } from "../../api/userService";
 
 type ItemForGivingProps = {
   item: Item;
@@ -20,6 +21,8 @@ const ItemForGiving = () => {
 
   const location = useLocation();
   const { item } = location.state as ItemForGivingProps;
+
+  const { data: itemPublisherPhoneNumber, isSuccess: isPublisherPhoneNumberSuccess } = useGetUserPhoneNumber(item.publisherMail)
 
   return (
     <>
@@ -40,7 +43,7 @@ const ItemForGiving = () => {
           {item?.description}
         </Typography>
       </Box>
-      <ShareWhatsApp intro={translations.tMessage('askingForItem')} item={item} />
+      {isPublisherPhoneNumberSuccess && <ShareWhatsApp intro={translations.tMessage('askingForItem')} item={item} itemPublisherPhoneNumber={itemPublisherPhoneNumber} />}
     </>
   );
 };

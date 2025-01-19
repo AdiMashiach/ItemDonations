@@ -11,6 +11,10 @@ export class UserService {
     return this.userRepository.getUser(email, password);
   }
 
+  async getUserPhoneNumber(email: string) {
+    return (await this.userRepository.getUserPhoneNumber(email)).phoneNumber
+  }
+
   async postUser(createUserDTO: CreateUserDto): Promise<User> {
     return this.userRepository.postUser(createUserDTO);
   }

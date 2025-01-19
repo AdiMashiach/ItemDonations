@@ -30,7 +30,10 @@ const Login = () => {
 
   const { control, handleSubmit, setError } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {},
+    defaultValues: {
+      email: "",
+      password: ""
+    },
   });
 
   const loginMutate = useMutation(getUser, {

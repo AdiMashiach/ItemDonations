@@ -23,6 +23,7 @@ import shipmentDetailsSchema, {
 import { Routes } from "../../router";
 import { Item } from "../../types";
 import "./ItemShipment.scss";
+import { useGetUserPhoneNumber } from "../../api/userService";
 
 type ItemShipmentProps = {
   item: Item;
@@ -100,6 +101,8 @@ const ItemShipment = () => {
     setValue("loadingCity", currentShipment?.cityId ?? "");
   }, [currentShipment, isShipmentSuccess, setValue]);
 
+  const { data: itemPublisherPhoneNumber, isSuccess: isPublisherPhoneNumberSuccess } = useGetUserPhoneNumber(item.publisherMail)
+
   return (
     <>
       <ItemDisplayerTitle title={translations.tTitle("searchShipment")} />
@@ -170,10 +173,13 @@ const ItemShipment = () => {
             {translations.tAction("publishShipment")}
           </Button>
         ) : (
-          <ShareWhatsApp
-            intro={translations.tMessage("askingForShipment")}
-            item={item}
-          />
+          <>
+            {isPublisherPhoneNumberSuccess && <ShareWhatsApp
+              intro={translations.tMessage("askingForShipment")}
+              item={item}
+              itemPublisherPhoneNumber={itemPublisherPhoneNumber}
+            />}
+          </>
         )}
       </Box>
     </>

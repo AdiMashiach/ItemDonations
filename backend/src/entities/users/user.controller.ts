@@ -14,8 +14,7 @@ export class UserController {
 
   @Get('phoneNumber')
   async getUserPhoneNumber(@Query('email') email: string) {
-    return this.userService.getUserPhoneNumber(email)
-  }
+    return this.userService.getUserPhoneNumber(email)  }
 
   @Post('register')
   async postUser(@Body() createUserDTO: CreateUserDto): Promise<User> {

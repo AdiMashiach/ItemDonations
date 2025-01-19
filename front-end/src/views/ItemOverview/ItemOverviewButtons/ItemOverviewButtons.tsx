@@ -3,12 +3,13 @@ import { IconButton, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { UseMutateFunction } from "react-query";
+import { UseMutateFunction, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import { Item } from "../../../types";
 import "./ItemOverviewButtons.scss";
+import { IEmail, sendEmail } from "../../../api/sendGridService";
 
 type ItemOverviewButtonsProps = {
   item: Item;
@@ -24,9 +25,11 @@ const ItemOverviewButtons = ({
   const translations = {
     tAction: useTranslation(Namespaces.action).t,
     tTitle: useTranslation(Namespaces.title).t,
+    tEmail: useTranslation(Namespaces.email).t,
   };
 
   const navigate = useNavigate();
+  const sendEmailMutation = useMutation(sendEmail).mutate
 
   const onClickAction = {
     edit: () => {
@@ -39,6 +42,11 @@ const ItemOverviewButtons = ({
     },
     reportGiven: () => {
       deleteItemMutation(item);
+      sendEmailMutation({
+        message: translations.tEmail('continueDonatingAndDoingGood'),
+        reciever: item.publisherMail,
+        subject: translations.tEmail('goodForTheDonation'),
+      } as IEmail)
       navigate(Routes.SUCCESS, {
         state: {
           headerText: translations.tTitle("itemPublished"),

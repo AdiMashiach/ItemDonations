@@ -50,7 +50,7 @@ const ItemModification = () => {
       defaultValues: {
         itemDescription: item?.description ?? "",
         itemImage: item?.image ?? "",
-        itemLocation: item?.cityId,
+        itemLocation: item?.cityId ?? "",
         itemName: item?.name ?? "",
       },
     }

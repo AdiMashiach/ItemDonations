@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { loggedUser } from "../atom/atom";
-import { User } from "../Data/users";
+import { User } from "../types";
 
 export const useAuth = () => {
   const [user, setUser] = useRecoilState(loggedUser);

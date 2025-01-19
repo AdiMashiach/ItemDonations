@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <>
-      <StyledEngineProvider injectFirst>
+      <StyledEngineProvider injectFirst> 
         <ThemeProvider theme={theme}>
           <RecoilRoot>
             <QueryClientProvider client={queryClient}>

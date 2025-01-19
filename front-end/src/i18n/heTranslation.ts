@@ -74,6 +74,8 @@ export default {
   [Namespaces.firstTime]: {
     firstTime: "פעם ראשונה? ",
     signUp: "פה נרשמים",
+    haveAnAccount: 'נזכרת במשתמש?',
+    login: 'התחברות'
   },
   [Namespaces.message]: {
     requiredField: "שדה חובה",
@@ -81,6 +83,10 @@ export default {
     invalidPasswordOrEmail: "משתמש או סיסמה אינם נכונים",
     enterValidEmail: 'הזן מייל תקין',
     askingForItem: 'היי, אשמח לברר לגבי הפריט',
-    askingForShipment: 'היי, אשמח לעזור בהובלה עם'
+    askingForShipment: 'היי, אשמח לעזור בהובלה עם',
   },
+  [Namespaces.email]: {
+    continueDonatingAndDoingGood: 'תמשיך לתרום ולעשות טוב לאחר :)',
+    goodForTheDonation: 'כל הכבוד על התרומה'
+  }
 };

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { User } from "../types";
+import { useQuery } from "react-query";
 
-export const getUser = async (user: User) => {  
+export const getUser = async (user: User) => {
   const { data: fetchedUser } = await axios.post(
     `http://localhost:3000/users/login`,
     { email: user.email, password: user.password }
@@ -11,8 +12,6 @@ export const getUser = async (user: User) => {
 };
 
 export const postUser = async (user: User) => {
-  console.log('register');
-  
   const { data: postedUser } = await axios.post(
     `http://localhost:3000/users/register`,
     user
@@ -20,3 +19,18 @@ export const postUser = async (user: User) => {
 
   return postedUser;
 };
+
+export const useGetUserPhoneNumber = (email: string) => {
+  const getUserPhoneNumber = async () => {
+    const { data: phoneNumber } = await axios.get<string>(
+      `http://localhost:3000/users/phoneNumber?email=${email}`
+    )
+
+    return phoneNumber
+  }
+
+  return useQuery({
+    queryKey: ['getUserPhoneNumber', email],
+    queryFn: getUserPhoneNumber
+  })
+}

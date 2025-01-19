@@ -3,37 +3,36 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Namespaces } from "../../i18n/i18n.constants";
-import "./ShareWhatsapp.scss";
-import { useRecoilValue } from "recoil";
-import { loggedUser as loggedUserAtom } from "../../atom/atom";
 import { Item } from "../../types";
+import "./ShareWhatsapp.scss";
 
 type ShareWhatsAppProps = {
   intro: string;
   item: Item;
+  itemPublisherPhoneNumber: string;
 };
 
-const ShareWhatsApp = ({ intro, item }: ShareWhatsAppProps) => {
+const ShareWhatsApp = ({ intro, item, itemPublisherPhoneNumber }: ShareWhatsAppProps) => {
   const translations = {
     tTitle: useTranslation(Namespaces.title).t,
     tAction: useTranslation(Namespaces.action).t,
     tPlaceholder: useTranslation(Namespaces.placeholder).t,
   };
 
+  console.log(itemPublisherPhoneNumber);
+
   const [whatsAppText, setWhatsAppText] = useState("");
-  const { data: itemPublisherPhoneNumber } = useGetPhoneNumber(item.publisherMail)
-  
+
   const onWhatsAppNumberChange = (whatsAppText: string) => {
     setWhatsAppText(whatsAppText);
   };
 
   const onSendClick = () => {
+    const phoneNumberToText = itemPublisherPhoneNumber
     const textToSend = `${intro}: ${item.name}\n${whatsAppText}`;
-
     const encodedText = encodeURIComponent(textToSend);
-    const whatsappLink = `https://wa.me/${loggedUser.phoneNumber}?text=${encodedText}`;
-    console.log(whatsappLink);
-    
+    const whatsappLink = `https://wa.me/${phoneNumberToText.substring(1)}?text=${encodedText}`;
+
     window.open(whatsappLink, "_blank");
   };
 

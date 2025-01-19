@@ -15,6 +15,7 @@ import registerSchema, {
 } from "../../RHFSchemas/RegisterSchema";
 import { Routes } from "../../router";
 import "./Register.scss";
+import LoginNavigator from "./LoginNavigator/LoginNavigator";
 
 const Register = () => {
   const translations = {
@@ -101,6 +102,7 @@ const Register = () => {
           />
         </TitledComponent>
       </Box>
+      <LoginNavigator />
       <Button className="register__button" onClick={onRegisterClick}>
         {translations.tAction("letsGo")}
       </Button>

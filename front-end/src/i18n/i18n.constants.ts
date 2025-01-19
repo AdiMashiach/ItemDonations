@@ -7,6 +7,7 @@ export const Namespaces = {
   itemsPage: 'itemsPage',
   landPage: "landPage",
   firstTime: "firstTime",
+  email: 'email'
 };
 
 export const Language = {

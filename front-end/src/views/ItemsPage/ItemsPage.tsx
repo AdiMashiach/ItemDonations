@@ -53,8 +53,7 @@ const ItemsPage = () => {
     if (selectedCategory.value === ItemCategoery.MY_ITEMS) {
       filteredItems = filteredItems?.filter(
         (filteredItem) =>
-          filteredItem.publisherMail === currentUser.email &&
-          filteredItem.itemStatus === ItemStatus.TO_DONATE
+          filteredItem.publisherMail === currentUser.email
       );
     } else if (selectedCategory.value === ItemCategoery.HOME) {
       filteredItems = filteredItems?.filter(

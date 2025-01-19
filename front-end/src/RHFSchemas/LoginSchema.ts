@@ -4,7 +4,7 @@ import { isTruthy } from "remeda";
 const loginSchema = z.object({
   email: z
     .string()
-    .email()
+    .email({ message: 'enterValidEmail' })
     .refine((username) => isTruthy(username), {
       message: "requiredField",
     }),

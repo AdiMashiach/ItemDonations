@@ -31,7 +31,7 @@ const ItemForGivingButtons = ({ item }: ItemOverviewButtonsProps) => {
     share: () => {
       share({
         title: translations.tTitle("shareItem"),
-        url: window.location.href,
+        url: `http://localhost:5173`,
       });
     },
   };

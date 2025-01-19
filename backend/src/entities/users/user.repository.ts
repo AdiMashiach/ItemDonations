@@ -24,7 +24,7 @@ export class UserRepository {
   }
 
   async getUserPhoneNumber(email: string) {
-    await this.userModel.findOne({
+    return await this.userModel.findOne({
       attributes: ['phoneNumber'],
       where: { email }
     })
