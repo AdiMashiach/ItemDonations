@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import * as sgMail from '@sendgrid/mail'
-import { SENDER_EMAIL } from "src/constants";
+import { SENDER_EMAIL, SENDGRID_API_KEY } from "src/constants";
 
 export interface IEmail {
     reciever: string;
@@ -11,7 +11,6 @@ export interface IEmail {
 @Injectable()
 export class SendGridService {
     constructor() {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     }
 
     async sendEmail(email: IEmail) {
@@ -24,6 +23,7 @@ export class SendGridService {
         }
 
         try {
+            sgMail.setApiKey(SENDGRID_API_KEY)
             await sgMail.send(emailToSend)
         } catch (error) {
             throw new HttpException('Failed to send email', HttpStatus.BAD_REQUEST)

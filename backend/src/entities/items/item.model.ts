@@ -21,6 +21,12 @@ interface IItem {
   user: User;
 }
 
+export enum ItemStatus {
+  TO_DONATE,
+  TO_SHIP,
+  DONATED
+}
+
 @Table({ tableName: 'Items', timestamps: false })
 export class Item extends Model<IItem> {
   @PrimaryKey

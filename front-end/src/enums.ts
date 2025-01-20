@@ -1,6 +1,7 @@
 export enum ItemStatus {
   TO_DONATE = 0,
   TO_SHIP = 1,
+  DONATED = 2
 }
 
 export enum ItemCategoery {

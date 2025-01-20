@@ -8,7 +8,7 @@ export interface IEmail {
 
 export const sendEmail = async (email: IEmail) => {
     const { data: response } = await axios.post(
-        `localhost://3000/sendEmail`, email
+        `http://localhost:3000/api/sendEmail`, email
     )
 
     return response

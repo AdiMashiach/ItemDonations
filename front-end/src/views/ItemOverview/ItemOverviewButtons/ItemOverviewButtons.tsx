@@ -3,13 +3,15 @@ import { IconButton, Typography } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
-import { UseMutateFunction, useMutation } from "react-query";
+import { QueryClient, UseMutateFunction, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import { Item } from "../../../types";
 import "./ItemOverviewButtons.scss";
 import { IEmail, sendEmail } from "../../../api/sendGridService";
+import { updateItem } from "../../../api/itemService";
+import { ItemStatus } from "../../../enums";
 
 type ItemOverviewButtonsProps = {
   item: Item;
@@ -29,8 +31,16 @@ const ItemOverviewButtons = ({
   };
 
   const navigate = useNavigate();
-  const sendEmailMutation = useMutation(sendEmail).mutate
+  const queryClient = new QueryClient();
 
+  const mutations = {
+    sendEmailMutation: useMutation(sendEmail).mutate,
+    updateItem: useMutation(updateItem, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getItems"]);
+      },
+    }).mutate
+  }
   const onClickAction = {
     edit: () => {
       navigate(Routes.ITEM_MODIFICATION, {
@@ -41,8 +51,11 @@ const ItemOverviewButtons = ({
       setIsDeleteDrawerOpen(true);
     },
     reportGiven: () => {
-      deleteItemMutation(item);
-      sendEmailMutation({
+      mutations.updateItem({
+        ...item,
+        itemStatus: ItemStatus.DONATED
+      });
+      mutations.sendEmailMutation({
         message: translations.tEmail('continueDonatingAndDoingGood'),
         reciever: item.publisherMail,
         subject: translations.tEmail('goodForTheDonation'),
