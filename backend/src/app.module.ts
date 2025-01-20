@@ -9,6 +9,7 @@ import { Shipment } from './entities/shipments/shipment.model';
 import { CityModule } from './entities/cities/city.module';
 import { ShipmentModule } from './entities/shipments/shipment.module';
 import { SendGridModule } from './api/send-grid/send-grid.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -22,6 +23,9 @@ import { SendGridModule } from './api/send-grid/send-grid.module';
       models: [City, User, Item, Shipment],
       autoLoadModels: false,
       synchronize: false,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true
     }),
     UserModule,
     ItemModule,
