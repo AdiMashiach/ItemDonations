@@ -88,5 +88,9 @@ export default {
   [Namespaces.email]: {
     continueDonatingAndDoingGood: 'תמשיך לתרום ולעשות טוב לאחר :)',
     goodForTheDonation: 'כל הכבוד על התרומה'
+  },
+  [Namespaces.itemStatus]: {
+    '0': 'ממתין למסירה',
+    '1': 'ממתין למשלוח',
   }
 };

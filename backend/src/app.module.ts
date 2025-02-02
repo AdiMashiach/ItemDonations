@@ -10,6 +10,7 @@ import { CityModule } from './entities/cities/city.module';
 import { ShipmentModule } from './entities/shipments/shipment.module';
 import { SendGridModule } from './api/send-grid/send-grid.module';
 import { ConfigModule } from '@nestjs/config';
+import { LocationModule } from './api/location/location.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { ConfigModule } from '@nestjs/config';
     ItemModule,
     CityModule,
     ShipmentModule,
-    SendGridModule
+    SendGridModule,
+    LocationModule
   ],
 })
 export class AppModule { }

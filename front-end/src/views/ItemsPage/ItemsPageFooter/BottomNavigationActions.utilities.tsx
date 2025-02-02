@@ -1,4 +1,4 @@
-import { Circle } from "@mui/icons-material";
+import { AddCircleOutline, LocalShipping, Person2, TravelExplore } from "@mui/icons-material";
 import { ItemCategoery } from "../../../enums";
 
 export type FooterAction = {
@@ -13,23 +13,23 @@ export default [
     label: "itemsForGiving",
     subLabel: 'hereYouFindItemsWaitingToBeTaken',
     value: ItemCategoery.HOME,
-    icon: <Circle />,
+    icon: <TravelExplore />,
   },
   {
     label: "newPost",
     value: ItemCategoery.NEW_POST,
-    icon: <Circle />,
+    icon: <AddCircleOutline />,
   },
   {
     label: "itemsIPosted",
     subLabel: 'hereYouHaveAllTheItemsYouPosted',
     value: ItemCategoery.MY_ITEMS,
-    icon: <Circle />,
+    icon: <Person2 />,
   },
   {
     label: "waitingForShipping",
     subLabel: 'canHelpShippingWellFindWhoNeedsYou',
     value: ItemCategoery.TO_SHIP_ITEMS,
-    icon: <Circle />,
+    icon: <LocalShipping />,
   },
 ] as FooterAction[];

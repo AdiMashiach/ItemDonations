@@ -7,7 +7,9 @@ export const Namespaces = {
   itemsPage: 'itemsPage',
   landPage: "landPage",
   firstTime: "firstTime",
-  email: 'email'
+  email: 'email',
+  itemStatus: 'itemStatus',
+  share: 'share'
 };
 
 export const Language = {

@@ -44,7 +44,6 @@ const Register = () => {
       login(postedUser);
     },
     onError: (error: any) => {
-      console.log(error);
 
       if (error.response?.data?.code === ERROR_CODES.USER_ALREADY_EXISTS) {
         setError("email", {

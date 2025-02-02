@@ -28,6 +28,9 @@ const theme = createTheme({
           borderRadius: "2rem",
           cursor: "pointer",
           border: "none",
+          ":hover": { 
+            backgroundColor: '#3e3d3d'
+          }
         },
       },
     },

@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, Typography } from "@mui/material";
+import { Box, Button, Drawer, InputLabel, Typography } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,6 +10,9 @@ import { Routes } from "../../router";
 import { Item } from "../../types";
 import "./ItemOverview.scss";
 import ItemOverviewButtons from "./ItemOverviewButtons/ItemOverviewButtons";
+import ItemStatusLabel from "./ItemStatus/ItemStatus";
+import { ItemStatus } from "../../enums";
+import StatusLabel from "./ItemStatus/ItemStatus";
 
 type ItemOverviewProps = {
   item?: Item;
@@ -20,6 +23,7 @@ const ItemOverview = () => {
     tField: useTranslation(Namespaces.field).t,
     tAction: useTranslation(Namespaces.action).t,
     tTitle: useTranslation(Namespaces.title).t,
+    tItemStatus: useTranslation(Namespaces.itemStatus).t
   };
   const [isDeleteDrawerOpen, setIsDeleteDrawerOpen] = useState(false);
 
@@ -55,6 +59,9 @@ const ItemOverview = () => {
           alt="Uploaded Preview"
           className="item-overview__image"
         />
+        <Box className='item-overview__status'>
+          <StatusLabel color={item?.itemStatus === ItemStatus.TO_DONATE ? "#9999ff" : "#33cc99"} text={translations.tItemStatus((item?.itemStatus ?? 0).toString())} />
+        </Box>
         <Typography className="item-overview__pickup-point">{`${translations.tField(
           "pickUpFrom"
         )}${item?.cityId}`}</Typography>
@@ -70,6 +77,7 @@ const ItemOverview = () => {
         PaperProps={{
           sx: {
             borderRadius: "1rem",
+            height: '40vh'
           },
         }}
       >

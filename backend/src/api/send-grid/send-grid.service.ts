@@ -14,7 +14,7 @@ export class SendGridService {
     private readonly apiKey: string;
 
     constructor(private readonly configService: ConfigService) {
-        this.apiKey = this.configService.get<string>('API_KEY');
+        this.apiKey = this.configService.get<string>('SENDGRID_API_KEY');
     }
 
     async sendEmail(email: IEmail) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
+
 .item-overview {
   display: flex;
   flex-direction: column;
@@ -19,6 +21,11 @@
     height: 20vh;
   }
 
+  &__status {
+    margin-left: auto;
+    margin-right: 5vw;
+  }
+
   &__pickup-point {
     color: #0075ff;
     font-weight: 600;
@@ -35,6 +42,33 @@
   }
 }
 
-.drawer__buttons {
-  
+.drawer {
+  &__title {
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    font-weight: 800;
+    font-family: 'Assistant';
+    color: black;
+  }
+
+  &__buttons {
+    position: absolute;
+    bottom: 2vh;
+    display: flex;
+    width: 100vw;;
+    justify-content: space-evenly;
+
+    &--cancel {
+      background-color: transparent;
+      color: black;
+      font-weight: 600;
+    }
+
+    &--delete {
+      background-color: red;
+      font-weight: 600;
+    }
+  }
 }

@@ -18,7 +18,6 @@ const SuccessPage = () => {
   const location = useLocation();
   const { headerText, subHeaderText } =
     location.state ?? ({} as SuccessPageProps);
-  console.log(headerText);
 
   const onBackToWebsiteClick = () => {
     navigate(Routes.ITEMS);

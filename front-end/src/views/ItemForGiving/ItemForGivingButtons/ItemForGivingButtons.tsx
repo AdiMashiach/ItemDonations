@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Namespaces } from "../../../i18n/i18n.constants";
 import { Routes } from "../../../router";
 import "./ItemForGivingButtons.scss";
-import useShare from "../../../hooks/useShare";
 import { Item } from "../../../types";
+import { handleShare } from "../../../hooks/useShare";
 
 type ItemOverviewButtonsProps = {
   item: Item;
@@ -15,10 +15,9 @@ type ItemOverviewButtonsProps = {
 const ItemForGivingButtons = ({ item }: ItemOverviewButtonsProps) => {
   const translations = {
     tAction: useTranslation(Namespaces.action).t,
-    tTitle: useTranslation(Namespaces.title).t,
+    tTitle: useTranslation(Namespaces.title).t
   };
 
-  const share = useShare();
   const navigate = useNavigate();
 
   const onClickAction = {
@@ -29,9 +28,9 @@ const ItemForGivingButtons = ({ item }: ItemOverviewButtonsProps) => {
     },
 
     share: () => {
-      share({
-        title: translations.tTitle("shareItem"),
-        url: `http://localhost:5173`,
+      handleShare({
+        title: 'translations.tTitle("shareItem")',
+        url: window.location.href,
       });
     },
   };

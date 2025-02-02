@@ -4,14 +4,13 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { clone } from "remeda";
 import { useFetchCities } from "../../api/citiesService";
 import { useFetchedItems } from "../../api/itemService";
+import { useLocation } from "../../api/locationService";
 import {
   cities as citiesAtom,
   loggedUser,
   userLocation as userLocationAtom,
 } from "../../atom/atom";
-import { API_KEY } from "../../contants";
 import { ItemCategoery, ItemClause, ItemStatus } from "../../enums";
-import useGeolocationCity from "../../hooks/useGeolocationCity";
 import { Item } from "../../types";
 import ItemPageContent from "./ItemPageContent/ItemsPageContent";
 import "./ItemsPage.scss";
@@ -36,8 +35,11 @@ const ItemsPage = () => {
   const setAtomCities = useSetRecoilState(citiesAtom);
 
   const setUserLocation = useSetRecoilState(userLocationAtom);
-  const userLocation = useGeolocationCity(API_KEY).city ?? "";
-  setUserLocation(userLocation);
+  const { data: userLocation } = useLocation()
+
+  useEffect(() => {
+    setUserLocation(userLocation)
+  }, [setUserLocation, userLocation])
 
   useEffect(() => {
     if (isItemsSuccess) setDisplayedItems(items);
